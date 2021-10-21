@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="icon" href="./img//favicon.png" type="image/x-icon" />
   </head>
-  <title>Jobs App</title>
+  <title>JobsApp &#8226; Home</title>
 
   <body class="m-0 p-0">
     <nav
@@ -141,14 +141,25 @@
     </nav>
 
     <main class="container is-fluid">
-      <section class="hero is-small is-info has-text-white" id="main-hero">
+      <section class="hero is-small is-dark has-text-white" id="main-hero">
         <div class="hero-body columns">
           <div class="column is-half">
-            <p class="title mb-6">
-              <ion-icon name="bag-outline"></ion-icon>
-              <br />
-              Manage all your jobs in one place.
-            </p>
+            <div style="font-size: xx-large" id="main-hero-icons-hoverable">
+              <span data-title="View">
+                <ion-icon name="bag-outline"></ion-icon
+              ></span>
+              <span data-title="Create">
+                <ion-icon name="bag-add-outline"></ion-icon
+              ></span>
+              <span data-title="Update">
+                <ion-icon name="bag-check-outline"></ion-icon
+              ></span>
+              <span data-title="Delete">
+                <ion-icon name="bag-remove-outline"></ion-icon
+              ></span>
+              <span data-title="👌👍" class="has-text-info-dark">Jobs!</span>
+            </div>
+            <p class="title mb-6">Manage all your jobs in one place.</p>
             <p class="subtitle">View and edit job status in real-time.</p>
             <section
               class="
@@ -176,8 +187,8 @@
         <div class="buttons mx-auto mb-2">
           <a
             href="./dashboard.html"
-            class="button is-family-secondary"
-            style="color: #296fa8"
+            class="button has-background-black-bis"
+            style="color: #296fa8;font-family: inherit; font-weight:bold;"
           >
             <ion-icon name="grid-outline" style="font-size: larger"></ion-icon>
             &nbsp;Dashboard</a

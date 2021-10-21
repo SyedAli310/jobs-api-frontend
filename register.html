@@ -141,61 +141,66 @@
     </nav>
 
     <main class="container is-fluid">
-      <form id="register-form">
-        <div class="field">
-          <p class="control has-icons-left has-icons-right">
-            <input
-              class="input"
-              type="text"
-              name="register-name"
-              id="register-name"
-              placeholder="Username..."
-            />
-            <span class="icon is-large is-left">
-              <ion-icon name="person-outline"></ion-icon>
-            </span>
-          </p>
-        </div>
-        <div class="field">
-          <p class="control has-icons-left has-icons-right">
-            <input
-              class="input"
-              type="email"
-              name="register-email"
-              id="register-email"
-              placeholder="Email"
-            />
-            <span class="icon is-large is-left">
-              <ion-icon name="mail-outline"></ion-icon>
-            </span>
-          </p>
-        </div>
-        <div class="field">
-          <p class="control has-icons-left">
-            <input
-              class="input"
-              type="password"
-              name="register-password"
-              id="register-password"
-              placeholder="Password"
-            />
-            <span class="icon is-small is-left">
-              <ion-icon name="lock-closed-outline"></ion-icon>
-            </span>
-          </p>
-        </div>
-        <div class="field">
-          <p class="control">
-            <button class="button is-success" type="submit" id="register-btn">
-              <ion-icon
-                name="log-in-outline"
-                style="font-size: larger"
-              ></ion-icon>
-              &nbsp;Register
-            </button>
-          </p>
-        </div>
-      </form>
+      <div class="container">
+        <span id="form-error" class="has-text-centered mb-4">&nbsp;</span>
+        <form id="register-form" class="has-text-centered p-6 mx-auto ">
+          <h1 class="is-size-4 mb-6 has-text-info-dark">Create an account</h1>
+          <div class="field mb-5">
+            <p class="control has-icons-left has-icons-right">
+              <input
+                class="input"
+                type="text"
+                name="register-name"
+                id="register-name"
+                placeholder="Username..."
+              />
+              <span class="icon is-large is-left">
+                <ion-icon name="person-outline"></ion-icon>
+              </span>
+            </p>
+          </div>
+          <div class="field mb-5">
+            <p class="control has-icons-left has-icons-right">
+              <input
+                class="input"
+                type="email"
+                name="register-email"
+                id="register-email"
+                placeholder="Email"
+              />
+              <span class="icon is-large is-left">
+                <ion-icon name="mail-outline"></ion-icon>
+              </span>
+            </p>
+          </div>
+          <div class="field mb-5">
+            <p class="control has-icons-left">
+              <input
+                class="input"
+                type="password"
+                name="register-password"
+                id="register-password"
+                placeholder="Password"
+              />
+              <span class="icon is-small is-left">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+              </span>
+            </p>
+          </div>
+          <div class="field mb-5">
+            <p class="control">
+              <button class="button is-success" type="submit" id="register-btn">
+                <ion-icon
+                  name="log-in-outline"
+                  style="font-size: larger"
+                ></ion-icon>
+                &nbsp;Register
+              </button>
+            </p>
+          </div>
+          <p class="is-flex is-align-items-center is-justify-content-center"><ion-icon name="information-circle-outline"></ion-icon>&nbsp;Password must be at least 6 characters</p>
+        </form>
+      </div>
     </main>
   </body>
 

@@ -150,7 +150,7 @@
             <span id="username-dash" style="color: #fff"></span>
           </div>
 
-          <div class="mb-5 has-text-centered">
+          <div class="mb-5 has-text-centered" id="add-job-btn-div">
             <a
               href="javascript:void(0)"
               class="button is-success is-medium modal-open-cst"
@@ -176,7 +176,9 @@
       </section>
     </main>
 
-    <div class="modal">
+    <!-- modals -->
+
+    <div class="modal add-job-modal">
       <div class="modal-background"></div>
       <div
         class="modal-card has-shadow"
@@ -237,11 +239,37 @@
           <button class="button is-success ml-auto" type="submit" id="add-job-btn">
             <ion-icon name="bag-add-outline"></ion-icon>&nbsp;Add
           </button>
-          <button class="button is-info-light modal-close-cst">Cancel</button>
         </footer>
     </form>
+    <button class="button is-info-light modal-close-cst">Cancel</button>
       </div>
     </div>
+
+    <div class="modal" id="confirm-msg-modal">
+        <div class="modal-background"></div>
+        <div
+          class="modal-card has-shadow"
+          style="border: 1px solid slateblue; border-radius: 8px"
+        >
+          <header class="modal-card-head has-background-black-bis">
+            <p class="modal-card-title has-text-danger">Confirm?</p>
+            <button
+              class="confirm-modal-close delete has-background-danger"
+              aria-label="close"
+            ></button>
+          </header>
+          <section class="modal-card-body has-background-black-bis">
+            <p class="has-text-white">Are you sure you want to delete this job?</p>
+          </section>
+          <footer class="modal-card-foot has-background-black-bis">
+            <button class="button is-danger ml-auto" id="delete-job-btn">
+              <ion-icon name="bag-remove-outline"></ion-icon>&nbsp;delete
+            </button>
+            <button class="button is-info-light confirm-modal-close">cancel</button>
+          </footer>
+        </div>
+      </div>
+
   </body>
 
   <!-- jQuery library -->

@@ -141,47 +141,51 @@
     </nav>
 
     <main class="container is-fluid">
-      <form id="login-form">
-        <div class="field">
-          <p class="control has-icons-left has-icons-right">
-            <input
-              class="input"
-              type="email"
-              name="login-email"
-              id="login-email"
-              placeholder="Email"
-            />
-            <span class="icon is-large is-left">
-              <ion-icon name="mail-outline"></ion-icon>
-            </span>
-          </p>
-        </div>
-        <div class="field">
-          <p class="control has-icons-left">
-            <input
-              class="input"
-              type="password"
-              name="login-password"
-              id="login-password"
-              placeholder="Password"
-            />
-            <span class="icon is-small is-left">
-              <ion-icon name="lock-closed-outline"></ion-icon>
-            </span>
-          </p>
-        </div>
-        <div class="field">
-          <p class="control">
-            <button class="button is-info" type="submit" id="login-btn">
-              <ion-icon
-                name="log-in-outline"
-                style="font-size: larger"
-              ></ion-icon>
-              &nbsp;Login
-            </button>
-          </p>
-        </div>
-      </form>
+      <div class="container">
+        <span id="form-error" class="has-text-centered mb-4">&nbsp;</span>
+        <form id="login-form" class="has-text-centered p-6 mx-auto ">
+          <h1 class="is-size-4 mb-6 has-text-info-dark">Login to your account</h1>
+          <div class="field mb-5">
+            <p class="control has-icons-left has-icons-right">
+              <input
+                class="input"
+                type="email"
+                name="login-email"
+                id="login-email"
+                placeholder="Email"
+              />
+              <span class="icon is-large is-left">
+                <ion-icon name="mail-outline"></ion-icon>
+              </span>
+            </p>
+          </div>
+          <div class="field mb-5">
+            <p class="control has-icons-left">
+              <input
+                class="input"
+                type="password"
+                name="login-password"
+                id="login-password"
+                placeholder="Password"
+              />
+              <span class="icon is-small is-left">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+              </span>
+            </p>
+          </div>
+          <div class="field mb-5">
+            <p class="control">
+              <button class="button is-info" type="submit" id="login-btn">
+                <ion-icon
+                  name="log-in-outline"
+                  style="font-size: larger"
+                ></ion-icon>
+                &nbsp;Login
+              </button>
+            </p>
+          </div>
+        </form>
+      </div>
     </main>
   </body>
 

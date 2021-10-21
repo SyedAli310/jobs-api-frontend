@@ -1,5 +1,7 @@
 const jobsDiv = document.querySelector("#all-jobs-div");
 
+const spinner = `<div class="spinner"></div>`;
+
 async function login(email, password) {
   try {
     const res = await fetch(
@@ -22,9 +24,19 @@ async function login(email, password) {
       $("#login-btn").removeClass("is-loading");
       window.location.href = "/";
     } else {
-      alert(data.msg);
-      $("#login-btn").removeAttr("disabled");
-      $("#login-btn").removeClass("is-loading");
+    let x = null ;
+     $('#form-error').css('visibility','hidden')
+     if(x){
+         clearTimeout(x)
+     }
+     x = setTimeout(()=>{
+        $('#form-error').css('visibility','visible')
+         $('#form-error').html(`
+           <p class='is-size-5 has-text-danger has-text-centered'>${data.msg}</p>
+         `)
+         $("#login-btn").removeAttr("disabled");
+         $("#login-btn").removeClass("is-loading");
+     },500)
       //   window.location.href = "./login.html";
     }
   } catch (error) {
@@ -54,10 +66,19 @@ async function register(name, email, password) {
       $("#login-btn").removeClass("is-loading");
       window.location.href = "/";
     } else {
-      alert(data.msg);
-      $("#login-btn").removeAttr("disabled");
-      $("#login-btn").removeClass("is-loading");
-      //   window.location.href = "./register.html";
+        let x = null ;
+        $('#form-error').css('visibility','hidden')
+        if(x){
+            clearTimeout(x)
+        }
+        x = setTimeout(()=>{
+           $('#form-error').css('visibility','visible')
+            $('#form-error').html(`
+              <p class='is-size-5 has-text-danger has-text-centered'>${data.msg}</p>
+            `)
+            $("#register-btn").removeAttr("disabled");
+            $("#register-btn").removeClass("is-loading");
+        },500)
     }
   } catch (error) {
     console.log(error.message);
@@ -66,7 +87,7 @@ async function register(name, email, password) {
 
 async function getJobs() {
   try {
-    jobsDiv.innerHTML = "";
+    jobsDiv.innerHTML = spinner;
     const token = localStorage.getItem("accessToken");
     const res = await fetch(
       "https://jobs-api-node-310.herokuapp.com/api/v1/jobs",
@@ -83,32 +104,52 @@ async function getJobs() {
     if (data.msg === "OK") {
       console.log(data);
       const jobs = data.jobs;
-      jobs.forEach((el, index) => {
-        const job = document.createElement("div");
-        job.classList.add("jobCard");
-        job.innerHTML = `
-          <p class='jobCard-number'>Job #${index + 1}</p>
-          <span class='jobCard-last-upd'>Last Updated: ${new Date(
-            el.updatedAt
-          ).toDateString()}
-          <hr class="dropdown-divider" />
-          </span>
-          <p class='jobCard-company'>Company - <span>${el.company}</span></p>
-          <p class='jobCard-pos'>Position - <span>${el.position}</span></p>
-          <p class='jobCard-status'>Status - <span>${el.status}</span></p>
-          <div class='jobCard-btns'>
-          <a href='javascript:void(0)' id='jobCard-del'><ion-icon name="bag-remove-outline" title='Delete Job'></ion-icon></a>
-          <a href='javascript:void(0)' id='jobCard-edit'><ion-icon name="create-outline" title='Edit Job'></ion-icon></a>
-          </div>
-          <hr class="dropdown-divider" />
-          <p class='jobCard-added'>
-          ${new Date(el.createdAt).toDateString()}
-          </p>
-          `;
-        jobsDiv.appendChild(job);
-      });
+      jobsDiv.innerHTML = "";
+      if (data.count == 0 || jobs.length < 1) {
+        jobsDiv.innerHTML = `<h1 class='has-text-danger'>You have no jobs added to your account.</h1>`;
+      } else {
+        jobs.forEach((el, index) => {
+          const job = document.createElement("div");
+          job.classList.add("jobCard");
+          job.innerHTML = `
+              <p class='jobCard-number'>Job #${index + 1}</p>
+              <span class='jobCard-last-upd'>Last Updated: ${new Date(
+                el.updatedAt
+              ).toDateString()}
+              </span>
+              <p class='jobCard-company'>Company - <span>${
+                el.company
+              }</span></p>
+              <p class='jobCard-pos'>Position - <span>${el.position}</span></p>
+              <p class='jobCard-status'>Status - <span>${el.status}</span></p>
+              <div class='jobCard-btns'>
+              <a href='javascript:void(0)' name='${
+                el._id
+              }' class='jobCard-del'><ion-icon name="bag-remove-outline" title='Delete Job'></ion-icon></a>
+              <a href='javascript:void(0)' name='${
+                el._id
+              }' class='jobCard-edit'><ion-icon name="create-outline" title='Edit Job'></ion-icon></a>
+              </div>
+              <p class='jobCard-added'>
+              ${new Date(el.createdAt).toDateString()}
+              </p>
+              `;
+          jobsDiv.appendChild(job);
+        });
+        deleteJobEventBinder();
+      }
     } else {
-      alert(data.msg);
+      if (data.msg == "Authentication Invalid") {
+        jobsDiv.innerHTML = `
+        <div class='has-text-centered'>
+            <h1>Login to start adding and managing jobs.</h1>
+            <br>
+            <a class='button is-info' href='./login.html'>Login</a>
+        </div>
+        `;
+      } else {
+        jobsDiv.innerHTML = data.msg;
+      }
     }
   } catch (error) {
     console.log(error.message);
@@ -152,6 +193,36 @@ async function createJob(company, position, status) {
   }
 }
 
+async function deleteJob(id) {
+  try {
+    const token = localStorage.getItem("accessToken");
+    const res = await fetch(
+      "https://jobs-api-node-310.herokuapp.com/api/v1/jobs/" + id,
+      {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await res.json();
+    console.log(data);
+    if (data.msg == "OK") {
+      $("#add-job-btn").removeAttr("disabled");
+      $("#add-job-btn").removeClass("is-loading");
+      $("#confirm-msg-modal").removeClass("is-active");
+      getJobs();
+    } else {
+      alert(data.msg);
+      //   window.location.href = "./register.html";
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
 function checkUserStatus() {
   if (
     localStorage.getItem("accessToken") &&
@@ -183,6 +254,7 @@ function setUserState() {
         </a>
     `);
     $("#dyn-text").text("Get started");
+    $("#add-job-btn-div").css("display", "none");
   } else {
     $("#dyn-btns").html(`
     <a
@@ -202,6 +274,7 @@ function setUserState() {
       </a>
       `
     );
+    $("#add-job-btn-div").css("display", "block");
   }
 }
 setUserState();
@@ -240,6 +313,20 @@ $("#add-job-form").on("submit", (e) => {
   $("#add-job-btn").addClass("is-loading");
 });
 
+function deleteJobEventBinder() {
+  $(".jobCard-del").on("click", (e) => {
+    const deleteJobId = e.target.name;
+    $("#confirm-msg-modal").addClass("is-active");
+    $("#delete-job-btn").attr("name", deleteJobId);
+  });
+}
+
+$("#delete-job-btn").on("click", (e) => {
+  deleteJob(e.target.name);
+  $("#delete-job-btn").attr("disabled", "disabled");
+  $("#delete-job-btn").addClass("is-loading");
+});
+
 $(".dropdown-trigger").on("click", () => {
   $(".dropdown").toggleClass("is-active");
   $(".dropdown-content").toggleClass("animate");
@@ -256,16 +343,19 @@ let i = 0;
 setInterval(() => {
   $(".animated-text").text(textCollection[i]);
   $(".animated-text").attr("data-text", textCollection[i]);
-  if (i > 2) {
+  if (i >= 2) {
     i = 0;
   } else {
     i++;
   }
-}, 4200);
+}, 4000);
 
 $(".modal-close-cst").on("click", () => {
-  $(".modal").removeClass("is-active");
+  $(".add-job-modal").removeClass("is-active");
+});
+$(".confirm-modal-close").on("click", () => {
+  $("#confirm-msg-modal").removeClass("is-active");
 });
 $(".modal-open-cst").on("click", () => {
-  $(".modal").addClass("is-active");
+  $(".add-job-modal").addClass("is-active");
 });
