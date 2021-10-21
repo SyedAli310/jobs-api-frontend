@@ -1,0 +1,56 @@
+
+body,html{
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+.dropdown-content .navbar-item, .column{
+    font-size: 20px !important;
+}
+.navbar-item:not(.login-join){
+    background-color: rgba(255, 255, 255,0.256) !important;
+    color: #fff !important;
+    border-radius: 6px !important;
+    margin-bottom: 1rem !important;
+    transition: all ease 300ms !important;
+}
+.navbar-item:hover:not(.login-join){
+    color: #296FA8 !important;
+    background-color: rgba(27, 27, 27,0.5) !important;
+}
+.login-join .button{
+    padding: 0.5rem 3rem !important;
+    transition: all ease 300ms;
+}
+.login-join .button:hover{
+    background-color: #296FA8 !important;
+    text-decoration: underline;
+}
+.dropdown-content{
+    border: 1.5px ridge #296FA8;
+    box-shadow: 1px 2px 8px #1b1b1b;
+    animation: navAnim 500ms ease;
+}
+
+
+@keyframes navAnim {
+    from{
+      display: none;
+      opacity: 0;
+      transform: translateY(10%);
+    }
+    to{
+        display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+@media (max-width:768px){
+    .is-fluid{
+        padding: 0 !important;
+    }
+
+    .dropdown, .navbar-brand{
+        margin-right: 1rem !important;
+    }
+}

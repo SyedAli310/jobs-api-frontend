@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" class="has-background-black m-0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Manage all your potential jobs and their status. All in one place."
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="icon" href="./img//favicon.png" type="image/x-icon" />
+  </head>
+  <title>Jobs App</title>
+
+  <body class="m-0 p-0">
+    <div class="container is-fluid has-background-black-bis">
+      <nav
+        class="
+          navbar
+          mt-2
+          is-flex is-justify-content-space-between is-align-items-center
+          has-background-black-bis
+        "
+        role="navigation"
+        aria-label="main navigation"
+      >
+        <div class="navbar-brand mt-4">
+          <a class="navbar-item" href="/">
+            <img src="./img/favicon.png" width="30" height="40" />
+          </a>
+        </div>
+
+        <div class="dropdown is-right">
+          <div class="dropdown-trigger">
+            <button
+              class="button has-background-info-dark has-text-white"
+              aria-haspopup="true"
+              aria-controls="dropdown-menu"
+            >
+              <ion-icon
+                name="menu-outline"
+                id="hamburger-icon"
+                area-hidden="true"
+                style="font-size: x-large"
+              ></ion-icon>
+            </button>
+          </div>
+          <div class="dropdown-menu mt-4" id="dropdown-menu" role="menu">
+              <div class="dropdown-content columns p-5 is-large is-fullwidth has-background-black-bis">
+                <!-- <div class="dropdown-trigger" style="width: min-content !important">
+                  <button
+                    class="delete has-background-danger"
+                    aria-haspopup="true"
+                    aria-controls="dropdown-menu"
+                  ></button>
+                </div> -->
+              <div class="column">
+                <div
+                  class="
+                    box
+                    mx-0
+                    is-shadowless is-fullwidth
+                    is-rounded
+                  "
+                  style="background-color: #296FA8; font-size: x-large;"
+                >
+                  <h1 class="has-text-centered has-text-white has-text-weight-bold" >Jobs App</h1>
+                </div>
+
+                <div class="columns">
+                  <div
+                    class="dropdown-item is-large is-fullwidth column is-full"
+                  >
+                    <a class="navbar-item"> Home </a>
+
+                    <a class="navbar-item"> Documentation </a>
+
+                    <a class="navbar-item"> Feedback </a>
+                    <hr class="dropdown-divider" />
+                    <div
+                      class="
+                        navbar-item
+                        login-join
+                        is-flex is-justify-content-space-around
+                      "
+                    >
+                      <div class="buttons is-flex-wrap-nowrap">
+                        <a class="button is-success is-medium">
+                          <strong>Join</strong>
+                        </a>
+                        <a class="button is-light is-medium"> Log in </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </body>
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Popper JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+  <!--Ion icons CDN-->
+  <script
+    type="module"
+    src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+  ></script>
+  <script
+    nomodule
+    src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+  ></script>
+
+  <!-- Custom JavaScript -->
+  <script src="./js/app.js"></script>
+</html>
