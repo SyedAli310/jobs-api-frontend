@@ -129,7 +129,7 @@ main {
   .modal-card {
     min-height: 90vh !important;
   }
-  #login-form {
+  #login-form, #register-form {
     min-width: 90vw !important;
     border: unset;
     border-radius: 10px;
@@ -194,11 +194,11 @@ main {
   left: 0;
   width: 0;
   height: 100%;
-  color: #37b9f1;
+  color: #296fa8;
   overflow: hidden;
   position: absolute;
   content: attr(data-text);
-  border-right: 2px solid #37b9f1;
+  border-right: 2px solid #296fa8;
   -webkit-text-stroke: 0vw #1b1b1b;
   animation: animate 4s linear infinite;
 }
@@ -324,11 +324,17 @@ main {
 
 #login-form, #register-form {
   max-width: 40vw !important;
-  border: 1.5px solid #296fa8;
   border-radius: 10px;
 }
-#login-form, #register-form input::placeholder{
-    color: black;
+#login-form{
+  border: 1.5px solid #296fa8;
+}
+#register-form{
+  border: 1.5px solid #3EC487;
+}
+#login-form input::placeholder, #register-form input::placeholder{
+    color: white;
+    opacity: 0.35;
 }
 
 #form-error p{
