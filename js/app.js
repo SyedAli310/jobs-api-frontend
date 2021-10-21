@@ -24,19 +24,19 @@ async function login(email, password) {
       $("#login-btn").removeClass("is-loading");
       window.location.href = "/";
     } else {
-    let x = null ;
-     $('#form-error').css('visibility','hidden')
-     if(x){
-         clearTimeout(x)
-     }
-     x = setTimeout(()=>{
-        $('#form-error').css('visibility','visible')
-         $('#form-error').html(`
+      let x = null;
+      $("#form-error").css("visibility", "hidden");
+      if (x) {
+        clearTimeout(x);
+      }
+      x = setTimeout(() => {
+        $("#form-error").css("visibility", "visible");
+        $("#form-error").html(`
            <p class='is-size-5 has-text-danger has-text-centered'>${data.msg}</p>
-         `)
-         $("#login-btn").removeAttr("disabled");
-         $("#login-btn").removeClass("is-loading");
-     },500)
+         `);
+        $("#login-btn").removeAttr("disabled");
+        $("#login-btn").removeClass("is-loading");
+      }, 500);
       //   window.location.href = "./login.html";
     }
   } catch (error) {
@@ -66,19 +66,19 @@ async function register(name, email, password) {
       $("#login-btn").removeClass("is-loading");
       window.location.href = "/";
     } else {
-        let x = null ;
-        $('#form-error').css('visibility','hidden')
-        if(x){
-            clearTimeout(x)
-        }
-        x = setTimeout(()=>{
-           $('#form-error').css('visibility','visible')
-            $('#form-error').html(`
+      let x = null;
+      $("#form-error").css("visibility", "hidden");
+      if (x) {
+        clearTimeout(x);
+      }
+      x = setTimeout(() => {
+        $("#form-error").css("visibility", "visible");
+        $("#form-error").html(`
               <p class='is-size-5 has-text-danger has-text-centered'>${data.msg}</p>
-            `)
-            $("#register-btn").removeAttr("disabled");
-            $("#register-btn").removeClass("is-loading");
-        },500)
+            `);
+        $("#register-btn").removeAttr("disabled");
+        $("#register-btn").removeClass("is-loading");
+      }, 500);
     }
   } catch (error) {
     console.log(error.message);
@@ -156,6 +156,7 @@ async function getJobs() {
   }
 }
 
+//[] handle errors */todo/*
 async function createJob(company, position, status) {
   try {
     const token = localStorage.getItem("accessToken");
@@ -193,6 +194,7 @@ async function createJob(company, position, status) {
   }
 }
 
+//[] handle errors */todo/*
 async function deleteJob(id) {
   try {
     const token = localStorage.getItem("accessToken");
@@ -279,6 +281,7 @@ function setUserState() {
 }
 setUserState();
 
+//Event Listeners
 $("#login-form").on("submit", (e) => {
   e.preventDefault();
   const loginEmail = $("#login-email").val();

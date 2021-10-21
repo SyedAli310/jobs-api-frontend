@@ -19,31 +19,31 @@ main {
   border-radius: 10px !important;
 }
 
-#main-hero-icons-hoverable span{
-    position: relative;
-    overflow: visible !important;
+#main-hero-icons-hoverable span {
+  position: relative;
+  overflow: visible !important;
 }
-#main-hero-icons-hoverable span::after{
-    position: absolute;
-    content:attr(data-title);
-    left: 50%;
-    top: -50%;
-    z-index: 10;
-    width:0.001;
-    height:0.001;
-    opacity: 0;
-    font-size: small;
-    padding: 0rem 0.5rem;
-    background-color: #2C5C80;
-    color:white;
-    border-radius: 2px;
-    transform: translate(-50%,0);
-    transition: all ease-in 300ms;
+#main-hero-icons-hoverable span::after {
+  position: absolute;
+  content: attr(data-title);
+  left: 50%;
+  top: -50%;
+  z-index: 10;
+  width: 0.001;
+  height: 0.001;
+  opacity: 0;
+  font-size: small;
+  padding: 0rem 0.5rem;
+  background-color: #2c5c80;
+  color: white;
+  border-radius: 2px;
+  transform: translate(-50%, 0);
+  transition: all ease-in 300ms;
 }
-#main-hero-icons-hoverable span:hover::after{
-    opacity: 1;
-    height:1.25rem;
-    width:max-content;
+#main-hero-icons-hoverable span:hover::after {
+  opacity: 1;
+  height: 1.25rem;
+  width: max-content;
 }
 .dropdown-content .navbar-item,
 .column {
@@ -129,12 +129,12 @@ main {
   .modal-card {
     min-height: 90vh !important;
   }
-  #login-form, #register-form {
+  #login-form,
+  #register-form {
     min-width: 90vw !important;
     border: unset;
     border-radius: 10px;
   }
-  
 }
 
 .menu {
@@ -322,21 +322,23 @@ main {
 
 /* login and register pages styles  */
 
-#login-form, #register-form {
+#login-form,
+#register-form {
   max-width: 40vw !important;
   border-radius: 10px;
 }
-#login-form{
+#login-form {
   border: 1.5px solid #296fa8;
 }
-#register-form{
-  border: 1.5px solid #3EC487;
+#register-form {
+  border: 1.5px solid #3ec487;
 }
-#login-form input::placeholder, #register-form input::placeholder{
-    color: white;
-    opacity: 0.35;
+#login-form input::placeholder,
+#register-form input::placeholder {
+  color: white;
+  opacity: 0.35;
 }
 
-#form-error p{
-    margin: 1rem 2rem !important;
+#form-error p {
+  margin: 1rem 2rem !important;
 }
