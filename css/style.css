@@ -99,6 +99,9 @@ main {
   .navbar-brand {
     margin-left: 1rem !important;
   }
+  .modal-card {
+    min-height: 90vh !important;
+  }
 }
 
 .menu {
@@ -179,4 +182,67 @@ main {
     align-self: center;
     width: 100%;
   }
+}
+
+.jobCard {
+  border-radius: 4px;
+  outline: 1px solid slateblue;
+  box-shadow: 1px 2px 10px #1b1b1b;
+  padding: 1rem;
+  margin: 1rem;
+  line-height: 2rem;
+}
+.jobCard p {
+  color: grey;
+}
+.jobCard p span {
+  color: #fff;
+}
+.jobCard-number {
+  color: slateblue !important;
+  text-decoration: underline;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  font-size: larger;
+}
+.jobCard-last-upd {
+  white-space: nowrap;
+  font-size: x-small;
+  color: slateblue;
+  opacity: 0.75;
+}
+.jobCard-added {
+  font-size: smaller;
+  color: grey !important;
+  text-align: center !important;
+  white-space: nowrap;
+}
+.jobCard-btns {
+  margin-top: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+.jobCard-btns ion-icon {
+  pointer-events: none;
+  font-size: x-large;
+}
+#jobCard-del {
+  color: hsl(348, 100%, 61%);
+}
+#jobCard-edit {
+  color: hsl(204, 86%, 53%);
+}
+
+.modal-card {
+  min-height: 65vh !important;
+  height: auto !important;
+  animation: navAnim 500ms ease;
+}
+.input::placeholder {
+  color: lightgray;
+  opacity: 0.35;
 }

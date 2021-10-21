@@ -1,3 +1,5 @@
+const jobsDiv = document.querySelector("#all-jobs-div");
+
 async function login(email, password) {
   try {
     const res = await fetch(
@@ -64,6 +66,7 @@ async function register(name, email, password) {
 
 async function getJobs() {
   try {
+    jobsDiv.innerHTML = "";
     const token = localStorage.getItem("accessToken");
     const res = await fetch(
       "https://jobs-api-node-310.herokuapp.com/api/v1/jobs",
@@ -79,9 +82,70 @@ async function getJobs() {
     const data = await res.json();
     if (data.msg === "OK") {
       console.log(data);
+      const jobs = data.jobs;
+      jobs.forEach((el, index) => {
+        const job = document.createElement("div");
+        job.classList.add("jobCard");
+        job.innerHTML = `
+          <p class='jobCard-number'>Job #${index + 1}</p>
+          <span class='jobCard-last-upd'>Last Updated: ${new Date(
+            el.updatedAt
+          ).toDateString()}
+          <hr class="dropdown-divider" />
+          </span>
+          <p class='jobCard-company'>Company - <span>${el.company}</span></p>
+          <p class='jobCard-pos'>Position - <span>${el.position}</span></p>
+          <p class='jobCard-status'>Status - <span>${el.status}</span></p>
+          <div class='jobCard-btns'>
+          <a href='javascript:void(0)' id='jobCard-del'><ion-icon name="bag-remove-outline" title='Delete Job'></ion-icon></a>
+          <a href='javascript:void(0)' id='jobCard-edit'><ion-icon name="create-outline" title='Edit Job'></ion-icon></a>
+          </div>
+          <hr class="dropdown-divider" />
+          <p class='jobCard-added'>
+          ${new Date(el.createdAt).toDateString()}
+          </p>
+          `;
+        jobsDiv.appendChild(job);
+      });
+    } else {
+      alert(data.msg);
     }
-    if (data.msg === "Authentication Invalid") {
-      console.log("Login to see jobs");
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+async function createJob(company, position, status) {
+  try {
+    const token = localStorage.getItem("accessToken");
+    const res = await fetch(
+      "https://jobs-api-node-310.herokuapp.com/api/v1/jobs",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          company: company,
+          position: position,
+          status: status,
+        }),
+      }
+    );
+    const data = await res.json();
+    console.log(data);
+    if (data.msg == "Created") {
+      $("#add-job-btn").removeAttr("disabled");
+      $("#add-job-btn").removeClass("is-loading");
+      $(".modal").removeClass("is-active");
+      getJobs();
+    } else {
+      alert(data.msg);
+      $("#add-job-btn").removeAttr("disabled");
+      $("#add-job-btn").removeClass("is-loading");
+      //   window.location.href = "./register.html";
     }
   } catch (error) {
     console.log(error.message);
@@ -166,8 +230,15 @@ $("#logout-btn").on("click", () => {
   window.location.href = "/";
 });
 
-//login();
-//getJobs();
+$("#add-job-form").on("submit", (e) => {
+  e.preventDefault();
+  const addJobCompany = $("#add-job-company").val();
+  const addJobPosition = $("#add-job-pos").val();
+  const addJobStatus = $("#add-job-status").val();
+  createJob(addJobCompany, addJobPosition, addJobStatus);
+  $("#add-job-btn").attr("disabled", "disabled");
+  $("#add-job-btn").addClass("is-loading");
+});
 
 $(".dropdown-trigger").on("click", () => {
   $(".dropdown").toggleClass("is-active");
@@ -191,3 +262,10 @@ setInterval(() => {
     i++;
   }
 }, 4200);
+
+$(".modal-close-cst").on("click", () => {
+  $(".modal").removeClass("is-active");
+});
+$(".modal-open-cst").on("click", () => {
+  $(".modal").addClass("is-active");
+});

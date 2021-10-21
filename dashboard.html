@@ -141,50 +141,107 @@
     </nav>
 
     <main class="container is-fluid">
-      <section class="hero is-small is-info has-text-white" id="main-hero">
-        <div class="hero-body columns">
-          <div class="column is-half">
-            <p class="title mb-6">
-              <ion-icon name="bag-outline"></ion-icon>
-              <br />
-              Manage all your jobs in one place.
-            </p>
-            <p class="subtitle">View and edit job status in real-time.</p>
-            <section
-              class="
-                twisted-1
-                is-small
-                has-background-warning has-text-centered
-              "
+      <section class="hero is-small has-text-white">
+        <div class="hero-body">
+          <div class="is-flex mb-6" style="gap: 10px">
+            <h1 class="has-text-white" style="font-size: xx-large">
+              Dashboard
+            </h1>
+            <span id="username-dash" style="color: #fff"></span>
+          </div>
+
+          <div class="mb-5 has-text-centered">
+            <a
+              href="javascript:void(0)"
+              class="button is-success is-medium modal-open-cst"
             >
-              <h2 class="animated-text" data-text="Coding...">Coding...</h2>
-            </section>
+              <ion-icon
+                name="bag-add-outline"
+                style="font-size: larger"
+              ></ion-icon
+              >&nbsp;Add new Job
+            </a>
           </div>
-          <div class="column is-half has-text-centered">
-            <img
-              src="./img/hero-svg.svg"
-              alt="jobs-app"
-              style="
-                height: 55vh;
-                background: rgba(27, 27, 27, 0.75);
-                border-radius: 10px;
-                padding: 1rem;
-              "
-            />
-          </div>
-        </div>
-        <div class="buttons mx-auto mb-2">
-          <a
-            href="./dashboard.html"
-            class="button is-family-secondary"
-            style="color: #296fa8"
-          >
-            <ion-icon name="grid-outline" style="font-size: larger"></ion-icon>
-            &nbsp;Dashboard</a
-          >
+
+          <div
+            class="
+              is-flex
+              is-justify-content-center
+              is-align-content-center
+              is-flex-wrap-wrap
+            "
+            id="all-jobs-div"
+          ></div>
         </div>
       </section>
     </main>
+
+    <div class="modal">
+      <div class="modal-background"></div>
+      <div
+        class="modal-card has-shadow"
+        style="border: 1px solid slateblue; border-radius: 8px"
+      >
+        <header class="modal-card-head has-background-black-bis">
+          <p class="modal-card-title has-text-info">Add new job...</p>
+          <button
+            class="modal-close-cst delete has-background-danger"
+            aria-label="close"
+          ></button>
+        </header>
+        <section class="modal-card-body has-background-black-bis">
+          <form id="add-job-form">
+            <div class="field is-horizontal">
+              <div class="field-body">
+                <div class="field">
+                  <label class="label has-text-success has-text-weight-bold">company</label>
+                  <div class="control">
+                    <input
+                      class="input is-success has-background-grey-darker has-text-white"
+                      type="text"
+                      id="add-job-company"
+                      placeholder="google, netflix, microsoft..."
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label has-text-success has-text-weight-bold">position</label>
+                  <div class="control">
+                    <input
+                      class="input is-success has-background-grey-darker has-text-white"
+                      type="text"
+                      id="add-job-pos"
+                      placeholder="intern, manager..."
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="field has-text-centered">
+                <label class="label has-text-success has-text-weight-bold">status</label>
+                <div class="control">
+                    <div class="select is-success">
+                        <select class="has-background-grey-darker has-text-white" id="add-job-status" required>
+                          <option>pending</option>
+                          <option>interview</option>
+                          <option>declined</option>
+                        </select>
+                      </div>
+                </div>
+              </div>
+        </section>
+        <footer class="modal-card-foot has-background-black-bis">
+          <button class="button is-success ml-auto" type="submit" id="add-job-btn">
+            <ion-icon name="bag-add-outline"></ion-icon>&nbsp;Add
+          </button>
+          <button class="button is-info-light modal-close-cst">Cancel</button>
+        </footer>
+    </form>
+      </div>
+    </div>
   </body>
 
   <!-- jQuery library -->
@@ -205,4 +262,14 @@
 
   <!-- Custom JavaScript -->
   <script src="./js/app.js"></script>
+  <script>
+    localStorage.getItem("loggedUser")
+      ? $("#username-dash").html(
+          `Hi, <span style='color:#296fa8;'>${localStorage.getItem(
+            "loggedUser"
+          )}</span>`
+        )
+      : "";
+    window.onload = getJobs();
+  </script>
 </html>
