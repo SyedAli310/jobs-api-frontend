@@ -156,6 +156,9 @@ ion-icon{
   .hero-svg-div img {
     height: 30vh !important;
   }
+  .hero-svg-div{
+    margin-bottom: 1.5rem !important;
+  }
   .is-fluid {
     padding: 0 !important;
   }
