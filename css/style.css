@@ -7,6 +7,10 @@ html {
   font-family: "Noto Sans Mono", monospace !important;
   overflow-x: hidden;
 }
+::selection {
+  background-color: #296fa8;
+  color: #fff;
+}
 /* width */
 body::-webkit-scrollbar {
   width: 8px;
