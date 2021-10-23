@@ -24,7 +24,7 @@ body::-webkit-scrollbar-thumb {
 
 /* Handle on hover */
 body::-webkit-scrollbar-thumb:hover {
-  background: #d53a9d;
+  background: slateblue;
 }
 
 nav {

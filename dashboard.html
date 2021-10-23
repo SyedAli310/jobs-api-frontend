@@ -182,10 +182,10 @@
       <div class="modal-background"></div>
       <div
         class="modal-card has-shadow"
-        style="border: 1px solid slateblue; border-radius: 8px"
+        style="border: 1px solid #3EC487; border-radius: 8px"
       >
         <header class="modal-card-head has-background-black-bis">
-          <p class="modal-card-title has-text-info">Add new job...</p>
+          <p class="modal-card-title has-text-success">Add new job...</p>
           <button
             class="modal-close-cst delete has-background-danger"
             aria-label="close"
@@ -239,9 +239,9 @@
           <button class="button is-success ml-auto" type="submit" id="add-job-btn">
             <ion-icon name="bag-add-outline"></ion-icon>&nbsp;Add
           </button>
+          <button class="button is-dark modal-close-cst">Cancel</button>
         </footer>
     </form>
-    <button class="button is-info-light modal-close-cst">Cancel</button>
       </div>
     </div>
 
@@ -249,7 +249,7 @@
       <div class="modal-background"></div>
       <div
         class="modal-card has-shadow"
-        style="border: 1px solid slateblue; border-radius: 8px"
+        style="border: 1px solid #296fa8; border-radius: 8px"
       >
         <header class="modal-card-head has-background-black-bis">
           <p class="modal-card-title has-text-info">Update job...</p>
@@ -263,10 +263,10 @@
             <div class="field is-horizontal">
               <div class="field-body">
                 <div class="field">
-                  <label class="label has-text-success has-text-weight-bold">company</label>
+                  <label class="label has-text-info has-text-weight-bold">company</label>
                   <div class="control">
                     <input
-                      class="input is-success has-background-grey-darker has-text-white"
+                      class="input is-info has-background-grey-darker has-text-white"
                       type="text"
                       id="update-job-company"
                       placeholder="google, netflix, microsoft..."
@@ -275,10 +275,10 @@
                 </div>
 
                 <div class="field">
-                  <label class="label has-text-success has-text-weight-bold">position</label>
+                  <label class="label has-text-info has-text-weight-bold">position</label>
                   <div class="control">
                     <input
-                      class="input is-success has-background-grey-darker has-text-white"
+                      class="input is-info has-background-grey-darker has-text-white"
                       type="text"
                       id="update-job-pos"
                       placeholder="intern, manager..."
@@ -288,9 +288,9 @@
               </div>
             </div>
             <div class="field has-text-centered">
-                <label class="label has-text-success has-text-weight-bold">status</label>
+                <label class="label has-text-info has-text-weight-bold">status</label>
                 <div class="control">
-                    <div class="select is-success">
+                    <div class="select is-info">
                         <select class="has-background-grey-darker has-text-white" id="update-job-status">
                           <option>pending</option>
                           <option>interview</option>
@@ -301,12 +301,12 @@
               </div>
         </section>
         <footer class="modal-card-foot has-background-black-bis">
-          <button class="button is-success ml-auto" type="submit" id="update-job-btn">
+          <button class="button is-info ml-auto" type="submit" id="update-job-btn">
             <ion-icon name="bag-outline"></ion-icon>&nbsp;update
           </button>
+          <button class="button is-dark modal-close-upd">close</button>
         </footer>
     </form>
-    <button class="button is-info-light modal-close-upd">close</button>
       </div>
     </div>
 
@@ -314,7 +314,7 @@
         <div class="modal-background"></div>
         <div
           class="modal-card has-shadow"
-          style="border: 1px solid slateblue; border-radius: 8px"
+          style="border: 1px solid #F03A5F; border-radius: 8px"
         >
           <header class="modal-card-head has-background-black-bis">
             <p class="modal-card-title has-text-danger">Confirm?</p>
@@ -330,7 +330,7 @@
             <button class="button is-danger ml-auto" id="delete-job-btn">
               <ion-icon name="bag-remove-outline"></ion-icon>&nbsp;delete
             </button>
-            <button class="button is-info-light confirm-modal-close">cancel</button>
+            <button class="button is-dark confirm-modal-close">cancel</button>
           </footer>
         </div>
       </div>

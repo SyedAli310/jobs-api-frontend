@@ -1,7 +1,7 @@
 //---------------------------------Selectors / Variables---------------------------------------
 const jobsDiv = document.querySelector("#all-jobs-div");
 const spinner = `<div class="spinner"></div>`;
-const textCollection = ["Jobs...", "Interviews...", "Offers...","JobEase..."];
+const textCollection = ["Jobs...", "Interviews...", "Offers...", "JobEase..."];
 let i = 0;
 
 //----------------------------------------Methods----------------------------------------------
@@ -44,7 +44,7 @@ async function login(email, password) {
   } catch (error) {
     console.log(error.message);
     let x = null;
-    setUserState()
+    setUserState();
     $("#form-error").css("visibility", "hidden");
     if (x) {
       clearTimeout(x);
@@ -99,7 +99,7 @@ async function register(name, email, password) {
   } catch (error) {
     console.log(error.message);
     let x = null;
-    setUserState()
+    setUserState();
     $("#form-error").css("visibility", "hidden");
     if (x) {
       clearTimeout(x);
@@ -175,7 +175,7 @@ async function getJobs() {
       }
     } else {
       if (data.msg == "Authentication Invalid") {
-        setUserState()
+        setUserState();
         jobsDiv.innerHTML = `
         <div class='has-text-centered'>
             <h1>Login to start adding and managing jobs.</h1>
@@ -185,13 +185,13 @@ async function getJobs() {
         `;
       } else {
         jobsDiv.innerHTML = data.msg;
-        setUserState()
+        setUserState();
       }
     }
   } catch (error) {
     console.log(error.message);
-    jobsDiv.innerHTML = error.message + '. Please try again after some time!';
-    setUserState()
+    jobsDiv.innerHTML = error.message + ". Please try again after some time!";
+    setUserState();
   }
 }
 
@@ -211,11 +211,11 @@ async function getSingleJob(id) {
     );
     const data = await res.json();
     if (data.msg === "OK") {
-      console.log("Single Job",data);
-      return data.job
+      console.log("Single Job", data);
+      return data.job;
     } else {
       if (data.msg == "Authentication Invalid") {
-        setUserState()
+        setUserState();
         jobsDiv.innerHTML = `
         <div class='has-text-centered'>
             <h1>Login to start adding and managing jobs.</h1>
@@ -225,14 +225,14 @@ async function getSingleJob(id) {
         `;
       } else {
         jobsDiv.innerHTML = data.msg;
-        setUserState()
+        setUserState();
       }
     }
   } catch (error) {
     console.log(error.message);
     $(".update-job-modal").removeClass("is-active");
-    jobsDiv.innerHTML = error.message + '. Please try again after some time!';
-    setUserState()
+    jobsDiv.innerHTML = error.message + ". Please try again after some time!";
+    setUserState();
   }
 }
 
@@ -261,16 +261,16 @@ async function createJob(company, position, status) {
       $("#add-job-btn").removeAttr("disabled");
       $("#add-job-btn").removeClass("is-loading");
       $(".add-job-modal").removeClass("is-active");
-      $('#add-job-company').val('')
-      $('#add-job-pos').val('')
-      $('#add-job-status').val('pending')
+      $("#add-job-company").val("");
+      $("#add-job-pos").val("");
+      $("#add-job-status").val("pending");
       getJobs();
     } else {
       if (data.msg == "Authentication Invalid") {
         $("#add-job-btn").removeAttr("disabled");
         $("#add-job-btn").removeClass("is-loading");
         $(".add-job-modal").removeClass("is-active");
-        setUserState()
+        setUserState();
         jobsDiv.innerHTML = `
         <div class='has-text-centered'>
             <h1>Login to start adding and managing jobs.</h1>
@@ -280,15 +280,15 @@ async function createJob(company, position, status) {
         `;
       } else {
         $(".add-job-modal").removeClass("is-active");
-        setUserState()
+        setUserState();
         jobsDiv.innerHTML = data.msg;
       }
     }
   } catch (error) {
     console.log(error.message);
     $(".add-job-modal").removeClass("is-active");
-    jobsDiv.innerHTML = error.message + '. Please try again after some time!';
-    setUserState()
+    jobsDiv.innerHTML = error.message + ". Please try again after some time!";
+    setUserState();
   }
 }
 
@@ -316,7 +316,7 @@ async function deleteJob(id) {
     } else {
       if (data.msg == "Authentication Invalid") {
         $("#confirm-msg-modal").removeClass("is-active");
-        setUserState()
+        setUserState();
         jobsDiv.innerHTML = `
         <div class='has-text-centered'>
             <h1>Login to start adding and managing jobs.</h1>
@@ -326,15 +326,15 @@ async function deleteJob(id) {
         `;
       } else {
         $("#confirm-msg-modal").removeClass("is-active");
-        setUserState()
+        setUserState();
         jobsDiv.innerHTML = data.msg;
       }
     }
   } catch (error) {
     console.log(error.message);
     $("#confirm-msg-modal").removeClass("is-active");
-    jobsDiv.innerHTML = error.message + '. Please try again after some time!';
-    setUserState()
+    jobsDiv.innerHTML = error.message + ". Please try again after some time!";
+    setUserState();
   }
 }
 
@@ -356,16 +356,20 @@ async function updateJob(id, updatedData) {
     const data = await res.json();
     console.log(data);
     if (data.msg == "OK") {
-      let x = null
+      let x = null;
       $("#update-job-btn").removeAttr("disabled");
       $("#update-job-btn").removeClass("is-loading");
-      $("#update-job-btn").html('<ion-icon name="bag-check-outline"></ion-icon>&nbsp;updated');
-      if(x){
-        clearTimeout(x)
+      $("#update-job-btn").html(
+        '<ion-icon name="bag-check-outline"></ion-icon>&nbsp;updated'
+      );
+      if (x) {
+        clearTimeout(x);
       }
-      x = setTimeout(()=>{
-        $("#update-job-btn").html('<ion-icon name="bag-outline"></ion-icon>&nbsp;update');
-      },1000)
+      x = setTimeout(() => {
+        $("#update-job-btn").html(
+          '<ion-icon name="bag-outline"></ion-icon>&nbsp;update'
+        );
+      }, 1000);
       //$(".modal").removeClass("is-active");
       getJobs();
     } else {
@@ -373,7 +377,7 @@ async function updateJob(id, updatedData) {
         $("#add-job-btn").removeAttr("disabled");
         $("#add-job-btn").removeClass("is-loading");
         $(".update-job-modal").removeClass("is-active");
-        setUserState()
+        setUserState();
         jobsDiv.innerHTML = `
         <div class='has-text-centered'>
             <h1>Login to start adding and managing jobs.</h1>
@@ -383,15 +387,15 @@ async function updateJob(id, updatedData) {
         `;
       } else {
         $(".update-job-modal").removeClass("is-active");
-        setUserState()
+        setUserState();
         jobsDiv.innerHTML = data.msg;
       }
     }
   } catch (error) {
     console.log(error.message);
     $(".update-job-modal").removeClass("is-active");
-    jobsDiv.innerHTML = error.message + '. Please try again after some time!';
-    setUserState()
+    jobsDiv.innerHTML = error.message + ". Please try again after some time!";
+    setUserState();
   }
 }
 
@@ -477,11 +481,11 @@ $("#logout-btn").on("click", () => {
   localStorage.clear();
   $("#logout-btn").attr("disabled", "disabled");
   $("#logout-btn").addClass("is-loading");
-  setTimeout(()=>{
+  setTimeout(() => {
     $("#logout-btn").removeAttr("disabled");
     $("#logout-btn").removeClass("is-loading");
     window.location.href = "./login.html";
-  },1500)
+  }, 1500);
 });
 
 // add job handler
@@ -511,26 +515,25 @@ $("#delete-job-btn").on("click", (e) => {
 });
 
 // update job handlers
-function fillJobData(id){
-  $('#update-job-company').val('')
-  $('#update-job-pos').val('')
-  $('#update-job-status').val('pending')
-  $('#update-job-form .control').addClass('is-loading')
-  getSingleJob(id).then((job)=>{
-    if(job){
-      $('#update-job-form .control').removeClass('is-loading')
-      $('#update-job-company').val(job.company)
-      $('#update-job-pos').val(job.position)
-      $('#update-job-status').val(job.status)
+function fillJobData(id) {
+  $("#update-job-company").val("");
+  $("#update-job-pos").val("");
+  $("#update-job-status").val("pending");
+  $("#update-job-form .control").addClass("is-loading");
+  getSingleJob(id).then((job) => {
+    if (job) {
+      $("#update-job-form .control").removeClass("is-loading");
+      $("#update-job-company").val(job.company);
+      $("#update-job-pos").val(job.position);
+      $("#update-job-status").val(job.status);
     }
-  })
-
+  });
 }
 
 function updateJobEventBinder() {
   $(".jobCard-edit").on("click", (e) => {
     const updateJobId = e.target.name;
-    fillJobData(updateJobId)
+    fillJobData(updateJobId);
     $("#update-job-btn").attr("name", updateJobId);
     $(".update-job-modal").addClass("is-active");
   });
@@ -538,11 +541,15 @@ function updateJobEventBinder() {
 
 $("#update-job-form").on("submit", (e) => {
   e.preventDefault();
-  const id = $('#update-job-btn').attr('name')
+  const id = $("#update-job-btn").attr("name");
   const updateJobCompany = $("#update-job-company").val();
   const updateJobPosition = $("#update-job-pos").val();
   const updateJobStatus = $("#update-job-status").val();
-  updateJob(id, {company:updateJobCompany, position:updateJobPosition, status:updateJobStatus} );
+  updateJob(id, {
+    company: updateJobCompany,
+    position: updateJobPosition,
+    status: updateJobStatus,
+  });
   $("#update-job-btn").attr("disabled", "disabled");
   $("#update-job-btn").addClass("is-loading");
 });
@@ -568,22 +575,31 @@ setInterval(() => {
   }
 }, 4000);
 
-$('#hero-dash-btn').on('mouseenter',(e)=>{
-  const options = ['bag-add-outline','bag-check-outline','bag-remove-outline']
-  $('#hero-dash-icon').attr('name',options[Math.floor(Math.random()*options.length)]) 
-})
-$('#hero-dash-btn').on('mouseleave',(e)=>{
-  $('#hero-dash-icon').attr('name','bag-outline') 
-})
+$("#hero-dash-btn").on("mouseenter", (e) => {
+  const options = [
+    "bag-add-outline",
+    "bag-check-outline",
+    "bag-remove-outline",
+  ];
+  $("#hero-dash-icon").attr(
+    "name",
+    options[Math.floor(Math.random() * options.length)]
+  );
+});
+$("#hero-dash-btn").on("mouseleave", (e) => {
+  $("#hero-dash-icon").attr("name", "bag-outline");
+});
 
 // modals open/close handlers
-$(".modal-close-cst").on("click", () => {
+$(".modal-close-cst").on("click", (e) => {
+  e.preventDefault();
   $(".add-job-modal").removeClass("is-active");
 });
 $(".modal-open-cst").on("click", () => {
   $(".add-job-modal").addClass("is-active");
 });
-$(".modal-close-upd").on("click", () => {
+$(".modal-close-upd").on("click", (e) => {
+  e.preventDefault();
   $(".update-job-modal").removeClass("is-active");
 });
 $(".modal-open-upd").on("click", () => {
@@ -592,5 +608,3 @@ $(".modal-open-upd").on("click", () => {
 $(".confirm-modal-close").on("click", () => {
   $("#confirm-msg-modal").removeClass("is-active");
 });
-
-
