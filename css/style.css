@@ -38,7 +38,7 @@ nav {
 main {
   margin-top: 6rem !important;
 }
-ion-icon{
+ion-icon {
   pointer-events: none;
 }
 
@@ -62,7 +62,7 @@ ion-icon{
   opacity: 0;
   font-size: x-small;
   padding: 0 0.5rem;
-  background-color: rgba(39, 39, 39,0.75);
+  background-color: rgba(39, 39, 39, 0.75);
   color: white;
   border-radius: 4px;
   transform: translate(-50%, 0);
@@ -156,7 +156,7 @@ ion-icon{
   .hero-svg-div img {
     height: 30vh !important;
   }
-  .hero-svg-div{
+  .hero-svg-div {
     margin-bottom: 1.5rem !important;
   }
   .is-fluid {
