@@ -37,7 +37,6 @@ async function login(email, password) {
         $("#login-btn").removeAttr("disabled");
         $("#login-btn").removeClass("is-loading");
       }, 500);
-      //   window.location.href = "./login.html";
     }
   } catch (error) {
     console.log(error.message);
