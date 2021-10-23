@@ -245,6 +245,71 @@
       </div>
     </div>
 
+    <div class="modal update-job-modal">
+      <div class="modal-background"></div>
+      <div
+        class="modal-card has-shadow"
+        style="border: 1px solid slateblue; border-radius: 8px"
+      >
+        <header class="modal-card-head has-background-black-bis">
+          <p class="modal-card-title has-text-info">Update job...</p>
+          <button
+            class="modal-close-upd delete has-background-danger"
+            aria-label="close"
+          ></button>
+        </header>
+        <section class="modal-card-body has-background-black-bis">
+          <form id="update-job-form">
+            <div class="field is-horizontal">
+              <div class="field-body">
+                <div class="field">
+                  <label class="label has-text-success has-text-weight-bold">company</label>
+                  <div class="control">
+                    <input
+                      class="input is-success has-background-grey-darker has-text-white"
+                      type="text"
+                      id="update-job-company"
+                      placeholder="google, netflix, microsoft..."
+                    />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="label has-text-success has-text-weight-bold">position</label>
+                  <div class="control">
+                    <input
+                      class="input is-success has-background-grey-darker has-text-white"
+                      type="text"
+                      id="update-job-pos"
+                      placeholder="intern, manager..."
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="field has-text-centered">
+                <label class="label has-text-success has-text-weight-bold">status</label>
+                <div class="control">
+                    <div class="select is-success">
+                        <select class="has-background-grey-darker has-text-white" id="update-job-status">
+                          <option>pending</option>
+                          <option>interview</option>
+                          <option>declined</option>
+                        </select>
+                      </div>
+                </div>
+              </div>
+        </section>
+        <footer class="modal-card-foot has-background-black-bis">
+          <button class="button is-success ml-auto" type="submit" id="update-job-btn">
+            <ion-icon name="bag-outline"></ion-icon>&nbsp;update
+          </button>
+        </footer>
+    </form>
+    <button class="button is-info-light modal-close-upd">close</button>
+      </div>
+    </div>
+
     <div class="modal" id="confirm-msg-modal">
         <div class="modal-background"></div>
         <div
