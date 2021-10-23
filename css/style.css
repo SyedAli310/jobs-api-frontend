@@ -12,6 +12,10 @@ nav {
   margin-top: 0 !important;
   box-shadow: 1px 1px 10px #222121;
 }
+#dyn-btns{
+  flex-direction: row-reverse !important;
+  gap: 1rem !important;
+}
 main {
   margin-top: 6rem !important;
 }
@@ -107,7 +111,7 @@ main {
   }
   .dropdown-content .navbar-item,
   .column {
-    font-size: 10px !important;
+    font-size: 15px !important;
   }
   .login-join .button {
     padding: 0.125rem 2rem !important;

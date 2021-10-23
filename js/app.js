@@ -22,7 +22,7 @@ async function login(email, password) {
       localStorage.setItem("loggedUser", data.user.name);
       $("#login-btn").removeAttr("disabled");
       $("#login-btn").removeClass("is-loading");
-      window.location.href = "/";
+      window.location.href = "./dashboard.html";
     } else {
       let x = null;
       $("#form-error").css("visibility", "hidden");
@@ -140,6 +140,7 @@ async function getJobs() {
       }
     } else {
       if (data.msg == "Authentication Invalid") {
+        setUserState()
         jobsDiv.innerHTML = `
         <div class='has-text-centered'>
             <h1>Login to start adding and managing jobs.</h1>
@@ -149,6 +150,7 @@ async function getJobs() {
         `;
       } else {
         jobsDiv.innerHTML = data.msg;
+        setUserState()
       }
     }
   } catch (error) {
@@ -156,7 +158,7 @@ async function getJobs() {
   }
 }
 
-//[] handle errors */todo/*
+//[x] handle errors */todo/*
 async function createJob(company, position, status) {
   try {
     const token = localStorage.getItem("accessToken");
@@ -184,17 +186,30 @@ async function createJob(company, position, status) {
       $(".modal").removeClass("is-active");
       getJobs();
     } else {
-      alert(data.msg);
-      $("#add-job-btn").removeAttr("disabled");
-      $("#add-job-btn").removeClass("is-loading");
-      //   window.location.href = "./register.html";
+      if (data.msg == "Authentication Invalid") {
+        $("#add-job-btn").removeAttr("disabled");
+        $("#add-job-btn").removeClass("is-loading");
+        $(".add-job-modal").removeClass("is-active");
+        setUserState()
+        jobsDiv.innerHTML = `
+        <div class='has-text-centered'>
+            <h1>Login to start adding and managing jobs.</h1>
+            <br>
+            <a class='button is-info' href='./login.html'>Login</a>
+        </div>
+        `;
+      } else {
+        $(".add-job-modal").removeClass("is-active");
+        setUserState()
+        jobsDiv.innerHTML = data.msg;
+      }
     }
   } catch (error) {
     console.log(error.message);
   }
 }
 
-//[] handle errors */todo/*
+//[x] handle errors */todo/*
 async function deleteJob(id) {
   try {
     const token = localStorage.getItem("accessToken");
@@ -212,13 +227,26 @@ async function deleteJob(id) {
     const data = await res.json();
     console.log(data);
     if (data.msg == "OK") {
-      $("#add-job-btn").removeAttr("disabled");
-      $("#add-job-btn").removeClass("is-loading");
+      $("#delete-job-btn").removeAttr("disabled");
+      $("#delete-job-btn").removeClass("is-loading");
       $("#confirm-msg-modal").removeClass("is-active");
       getJobs();
     } else {
-      alert(data.msg);
-      //   window.location.href = "./register.html";
+      if (data.msg == "Authentication Invalid") {
+        $("#confirm-msg-modal").removeClass("is-active");
+        setUserState()
+        jobsDiv.innerHTML = `
+        <div class='has-text-centered'>
+            <h1>Login to start adding and managing jobs.</h1>
+            <br>
+            <a class='button is-info' href='./login.html'>Login</a>
+        </div>
+        `;
+      } else {
+        $("#confirm-msg-modal").removeClass("is-active");
+        setUserState()
+        jobsDiv.innerHTML = data.msg;
+      }
     }
   } catch (error) {
     console.log(error.message);
@@ -303,7 +331,13 @@ $("#register-form").on("submit", (e) => {
 
 $("#logout-btn").on("click", () => {
   localStorage.clear();
-  window.location.href = "/";
+  $("#logout-btn").attr("disabled", "disabled");
+  $("#logout-btn").addClass("is-loading");
+  setTimeout(()=>{
+    $("#logout-btn").removeAttr("disabled");
+    $("#logout-btn").removeClass("is-loading");
+    window.location.href = "./login.html";
+  },1500)
 });
 
 $("#add-job-form").on("submit", (e) => {
@@ -340,13 +374,13 @@ $(".dropdown-trigger").on("click", () => {
   }
 });
 
-const textCollection = ["Jobs...", "Interview...", "Offer..."];
+const textCollection = ["Jobs...", "Interviews...", "Offers...","JobEase..."];
 let i = 0;
 
 setInterval(() => {
   $(".animated-text").text(textCollection[i]);
   $(".animated-text").attr("data-text", textCollection[i]);
-  if (i >= 2) {
+  if (i >= 3) {
     i = 0;
   } else {
     i++;
