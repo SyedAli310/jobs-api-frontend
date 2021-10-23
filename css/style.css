@@ -19,6 +19,7 @@ nav {
 main {
   margin-top: 6rem !important;
 }
+
 .hero {
   border-radius: 10px !important;
 }
@@ -26,6 +27,9 @@ main {
 #main-hero-icons-hoverable span {
   position: relative;
   overflow: visible !important;
+}
+#main-hero-icons-hoverable span:hover{
+  color: #2c5c80;
 }
 #main-hero-icons-hoverable span::after {
   position: absolute;
@@ -119,6 +123,15 @@ main {
   }
   .hero {
     border-radius: 0 !important;
+  }
+  .hero-svg-div{
+    justify-content: center !important;
+  }
+  #main-hero .hero-body{
+    text-align: center !important;
+  }
+  #main-hero .buttons{
+    justify-content: center !important;
   }
   .is-fluid {
     padding: 0 !important;

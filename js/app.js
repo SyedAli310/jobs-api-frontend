@@ -157,7 +157,7 @@ async function getJobs() {
   }
 }
 
-//[x] handle errors */todo/*
+//[x] handle errors */todo -done-/*
 async function createJob(company, position, status) {
   try {
     const token = localStorage.getItem("accessToken");
@@ -208,7 +208,7 @@ async function createJob(company, position, status) {
   }
 }
 
-//[x] handle errors */todo/*
+//[x] handle errors */todo -done-/*
 async function deleteJob(id) {
   try {
     const token = localStorage.getItem("accessToken");
