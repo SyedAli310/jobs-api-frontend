@@ -2,6 +2,14 @@ const jobsDiv = document.querySelector("#all-jobs-div");
 
 const spinner = `<div class="spinner"></div>`;
 
+window.addEventListener('DOMContentLoaded', (event) => {
+  document.querySelectorAll('ion-icon #shadow-root .icon-inner').forEach((icon)=>{
+    // icon.title = '';
+    console.log('1');
+  })
+});
+
+
 async function login(email, password) {
   try {
     const res = await fetch(
@@ -122,12 +130,16 @@ async function getJobs() {
               <p class='jobCard-pos'>Position - <span>${el.position}</span></p>
               <p class='jobCard-status'>Status - <span>${el.status}</span></p>
               <div class='jobCard-btns'>
+              <span class='hoverable-icon' data-title='Delete'>
               <a href='javascript:void(0)' name='${
                 el._id
-              }' class='jobCard-del'><ion-icon name="bag-remove-outline" title='Delete Job'></ion-icon></a>
+              }' class='jobCard-del'><ion-icon name="bag-remove-outline"></ion-icon></a>
+              </span>
+              <span class='hoverable-icon' data-title='Edit'>
               <a href='javascript:void(0)' name='${
                 el._id
-              }' class='jobCard-edit'><ion-icon name="create-outline" title='Edit Job'></ion-icon></a>
+              }' class='jobCard-edit'><ion-icon name="create-outline"></ion-icon></a>
+              </span>
               </div>
               <p class='jobCard-added'>
               ${new Date(el.createdAt).toDateString()}
