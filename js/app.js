@@ -386,6 +386,14 @@ setInterval(() => {
   }
 }, 4000);
 
+$('#hero-dash-btn').on('mouseenter',(e)=>{
+  const options = ['bag-add-outline','bag-check-outline','bag-remove-outline']
+  $('#hero-dash-icon').attr('name',options[Math.floor(Math.random()*options.length)]) 
+})
+$('#hero-dash-btn').on('mouseleave',(e)=>{
+  $('#hero-dash-icon').attr('name','bag-outline') 
+})
+
 $(".modal-close-cst").on("click", () => {
   $(".add-job-modal").removeClass("is-active");
 });
