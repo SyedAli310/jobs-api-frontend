@@ -1,3 +1,4 @@
 [[redirects]]
-  from = "/dashboard.html"
-  to = "/dashboard"
+from = "/dashboard.html"
+to = "/dashboard"
+force = true
