@@ -1,7 +1,6 @@
 [[redirects]]
 from = "/dashboard.html"
 to = "/dashboard"
-force = true
 from = "/login.html"
 to = "/login"
 force = true
