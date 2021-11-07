@@ -542,6 +542,7 @@ function setUserState() {
     `);
     $("#dyn-text").text("Get started");
     $("#add-job-btn-div").css("display", "none");
+    $(".back-to-dashboard").css("display", "none");
   } else {
     $("#dyn-btns").html(`
     <a
@@ -562,6 +563,7 @@ function setUserState() {
       `
     );
     $("#add-job-btn-div").css("display", "block");
+    $(".back-to-dashboard").css("display", "block");
   }
 }
 setUserState();
