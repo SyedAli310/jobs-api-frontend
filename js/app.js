@@ -3,8 +3,6 @@ const jobsDiv = document.querySelector("#all-jobs-div");
 const jobsExploreDiv = document.querySelector("#all-explore-jobs-div");
 const spinner = `<div class="spinner m-auto"></div>`;
 const textCollection = ["Jobs...", "Interviews...", "Offers...", "JobEase..."];
-var pageTitle = document.title;
-var attentionMessage = "Come Back! 🥺";
 let i = 0;
 let page = 1;
 
