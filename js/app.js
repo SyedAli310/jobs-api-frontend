@@ -287,13 +287,17 @@ async function createJob(company, position, link, status) {
         $("#add-job-btn").removeClass("is-loading");
         $(".add-job-modal").removeClass("is-active");
         setUserState();
-        jobsDiv.innerHTML = `
-        <div class='has-text-centered'>
-            <h1>Login to start adding and managing jobs.</h1>
-            <br>
-            <a class='button is-info' href='./login.html'>Login</a>
-        </div>
-        `;
+        if (window.location.pathname.includes("dashboard")) {
+          jobsDiv.innerHTML = `
+          <div class='has-text-centered'>
+              <h1>Login to start adding and managing jobs.</h1>
+              <br>
+              <a class='button is-info' href='./login.html'>Login</a>
+          </div>
+          `;
+        } else {
+          alert("Login to start adding and managing jobs.");
+        }
       } else if (data.msg == "Invalid link") {
         alert("Invalid link");
         $("#add-job-btn").removeAttr("disabled");
@@ -301,13 +305,21 @@ async function createJob(company, position, link, status) {
       } else {
         $(".add-job-modal").removeClass("is-active");
         setUserState();
-        jobsDiv.innerHTML = data.msg;
+        if (window.location.pathname.includes("dashboard")) {
+          jobsDiv.innerHTML = data.msg;
+        } else {
+          alert(data.msg);
+        }
       }
     }
   } catch (error) {
     console.log(error.message);
     $(".add-job-modal").removeClass("is-active");
-    jobsDiv.innerHTML = error.message + ". Please try again after some time!";
+    if (window.location.pathname.includes("dashboard")) {
+      jobsDiv.innerHTML = error.message + ". Please try again after some time!";
+    } else {
+      alert(error.message + ". Please try again after some time!");
+    }
     setUserState();
   }
 }
