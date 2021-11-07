@@ -145,34 +145,13 @@
         <div class="hero-body">
           <div class="is-flex mb-6" style="gap: 10px">
             <h1 class="has-text-white" style="font-size: xx-large">
-              Dashboard
+              Explore jobs
             </h1>
             <span id="username-dash" style="color: #fff"></span>
           </div>
 
-          <div class="mb-5 has-text-centered" id="add-job-btn-div">
-            <a
-              href="javascript:void(0)"
-              class="button is-success is-medium modal-open-cst my-2"
-            >
-              <ion-icon
-                name="bag-add-outline"
-                style="font-size: larger"
-              ></ion-icon
-              >&nbsp;Add new Job
-            </a>
-            <a
-              href="/explore.html"
-              class="button is-info is-medium my-2"
-            >
-              <ion-icon
-                name="eye-outline"
-                style="font-size: larger"
-              ></ion-icon
-              >&nbsp;Explore Jobs
-            </a>
           </div>
-
+          <button class="button is-dark is-small mb-4 mx-6" id='next-page'>Page-1 &#8226; Next Page</button>
           <div
             class="
               is-flex
@@ -180,7 +159,8 @@
               is-align-content-center
               is-flex-wrap-wrap
             "
-            id="all-jobs-div"
+            id="all-explore-jobs-div"
+            style="min-height: 50vh;"
           ></div>
         </div>
       </section>
@@ -373,7 +353,7 @@
           )}</span>`
         )
       : "";
-    window.onload = getJobs();
+    window.onload = getExploreJobs(page);
     document.title += localStorage.getItem('loggedUser') ? ` / ${localStorage.getItem('loggedUser')}` : ''
   </script>
 </html>

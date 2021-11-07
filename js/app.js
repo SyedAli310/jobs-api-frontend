@@ -1,10 +1,14 @@
 //---------------------------------Selectors / Variables---------------------------------------
 const jobsDiv = document.querySelector("#all-jobs-div");
-const spinner = `<div class="spinner"></div>`;
+const jobsExploreDiv = document.querySelector("#all-explore-jobs-div");
+const spinner = `<div class="spinner m-auto"></div>`;
 const textCollection = ["Jobs...", "Interviews...", "Offers...", "JobEase..."];
+var pageTitle = document.title;
+var attentionMessage = "Come Back! 🥺";
 let i = 0;
-
+let page = 1;
 //----------------------------------------Methods----------------------------------------------
+
 async function login(email, password) {
   try {
     const res = await fetch(
@@ -399,6 +403,62 @@ async function updateJob(id, updatedData) {
   }
 }
 
+async function getExploreJobs(page) {
+  try {
+    $("#next-page").css("display", "block");
+    jobsExploreDiv.innerHTML = spinner;
+    const res = await fetch(
+      `https://api.adzuna.com/v1/api/jobs/gb/search/${
+        page ? page : 1
+      }?app_id=29ab237f&app_key=d10df92d95d2fcaeac4841d5e06c0c43&results_per_page=100&what=software`
+    );
+    const data = await res.json();
+    if (data) {
+      jobsExploreDiv.innerHTML = "";
+      console.log(data);
+      const jobs = data.results;
+      jobs.forEach((el, index) => {
+        const job = document.createElement("div");
+        job.classList.add("jobCard");
+        job.innerHTML = `
+            <p class='jobCard-number'>Job #${index + 1}</p>
+            <p class='jobCard-company'>Company - <span>${
+              el.company.display_name
+            }</span></p>
+            <p class='jobCard-pos'>Position - <span>${el.title}</span></p>
+            <div class='jobCard-btns'>
+            <span class='hoverable-icon' data-title='Save'>
+            <a href='javascript:void(0)' name='${
+              el.id
+            }' class='save-explore-job' ><ion-icon name="bag-add-outline"></ion-icon></a>
+            </span>
+            <span class='hoverable-icon' data-title='Visit'>
+            <a href='${el.redirect_url}' title='${
+          el.company.display_name
+        }' ><ion-icon name="link-outline"></ion-icon></a>
+            </span>
+            </div>
+            <p class='jobCard-added'>
+            ${el.location.display_name}
+            </p>
+            `;
+        jobsExploreDiv.appendChild(job);
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+    $("#next-page").css("display", "none");
+    jobsExploreDiv.innerHTML =
+      "<p class='has-text-centered has-text-danger'>Something went wrong. <br> Try again after some time! <br> <a href='/explore.html'>Refresh</a></p>";
+  }
+}
+
+function saveJobEventBinder() {
+  $(".save-explore-job").on("click", (e) => {
+    console.log("hello");
+  });
+}
+
 function checkUserStatus() {
   if (
     localStorage.getItem("accessToken") &&
@@ -552,6 +612,24 @@ $("#update-job-form").on("submit", (e) => {
   });
   $("#update-job-btn").attr("disabled", "disabled");
   $("#update-job-btn").addClass("is-loading");
+});
+
+$("#explore-jobs").on("click", () => {
+  getExploreJobs();
+});
+
+$("#next-page").click(() => {
+  page++;
+  $("#next-page").html(`Page-${page} &#8226; Next Page`);
+  getExploreJobs(page);
+  let x = null;
+  if (x) {
+    clearTimeout(x);
+  }
+  $("#next-page").attr("disabled", "disabled");
+  setTimeout(() => {
+    $("#next-page").removeAttr("disabled");
+  }, 2000);
 });
 
 // UI interaction Handlers
