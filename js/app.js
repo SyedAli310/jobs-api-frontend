@@ -7,6 +7,7 @@ var pageTitle = document.title;
 var attentionMessage = "Come Back! 🥺";
 let i = 0;
 let page = 1;
+
 //----------------------------------------Methods----------------------------------------------
 
 async function login(email, password) {
@@ -124,7 +125,7 @@ async function getJobs() {
     jobsDiv.innerHTML = spinner;
     const token = localStorage.getItem("accessToken");
     const res = await fetch(
-      "https://jobs-api-node-310.herokuapp.com/api/v1/jobs",
+      "https://jobs-api-node-310.herokuapp.com/api/v1/jobs?sort=-createdAt",
       {
         method: "GET",
         headers: {
@@ -157,15 +158,21 @@ async function getJobs() {
               <p class='jobCard-pos'>Position - <span>${el.position}</span></p>
               <p class='jobCard-status'>Status - <span>${el.status}</span></p>
               <div class='jobCard-btns'>
-              <span class='hoverable-icon' data-title='Delete'>
-              <a href='javascript:void(0)' name='${
-                el._id
-              }' class='jobCard-del'><ion-icon name="bag-remove-outline"></ion-icon></a>
+              <span class='hoverable-icon' data-title='Visit'>
+              <a href='${
+                el.link ? el.link : "javascript:void(0)"
+              }' target='_blank' class='has-text-white'>
+              <ion-icon name="navigate-outline"></ion-icon></a>
               </span>
               <span class='hoverable-icon' data-title='Edit'>
               <a href='javascript:void(0)' name='${
                 el._id
               }' class='jobCard-edit'><ion-icon name="create-outline"></ion-icon></a>
+              </span>
+              <span class='hoverable-icon' data-title='Delete'>
+              <a href='javascript:void(0)' name='${
+                el._id
+              }' class='jobCard-del'><ion-icon name="bag-remove-outline"></ion-icon></a>
               </span>
               </div>
               <p class='jobCard-added'>
@@ -185,6 +192,7 @@ async function getJobs() {
             <h1>Login to start adding and managing jobs.</h1>
             <br>
             <a class='button is-info' href='./login.html'>Login</a>
+            <a class='button is-dark' href='./explore.html'>Explore</a>
         </div>
         `;
       } else {
@@ -240,7 +248,7 @@ async function getSingleJob(id) {
   }
 }
 
-async function createJob(company, position, status) {
+async function createJob(company, position, link, status) {
   try {
     const token = localStorage.getItem("accessToken");
     const res = await fetch(
@@ -255,6 +263,7 @@ async function createJob(company, position, status) {
         body: JSON.stringify({
           company: company,
           position: position,
+          link: link,
           status: status,
         }),
       }
@@ -267,8 +276,13 @@ async function createJob(company, position, status) {
       $(".add-job-modal").removeClass("is-active");
       $("#add-job-company").val("");
       $("#add-job-pos").val("");
+      $("#add-job-link").val("");
       $("#add-job-status").val("pending");
-      getJobs();
+      if (window.location.pathname.includes("dashboard")) {
+        getJobs();
+      } else {
+        alert("Job added successfully!");
+      }
     } else {
       if (data.msg == "Authentication Invalid") {
         $("#add-job-btn").removeAttr("disabled");
@@ -282,6 +296,10 @@ async function createJob(company, position, status) {
             <a class='button is-info' href='./login.html'>Login</a>
         </div>
         `;
+      } else if (data.msg == "Invalid link") {
+        alert("Invalid link");
+        $("#add-job-btn").removeAttr("disabled");
+        $("#add-job-btn").removeClass("is-loading");
       } else {
         $(".add-job-modal").removeClass("is-active");
         setUserState();
@@ -378,8 +396,8 @@ async function updateJob(id, updatedData) {
       getJobs();
     } else {
       if (data.msg == "Authentication Invalid") {
-        $("#add-job-btn").removeAttr("disabled");
-        $("#add-job-btn").removeClass("is-loading");
+        $("#update-job-btn").removeAttr("disabled");
+        $("#update-job-btn").removeClass("is-loading");
         $(".update-job-modal").removeClass("is-active");
         setUserState();
         jobsDiv.innerHTML = `
@@ -389,6 +407,10 @@ async function updateJob(id, updatedData) {
             <a class='button is-info' href='./login.html'>Login</a>
         </div>
         `;
+      } else if (data.msg == "Invalid link") {
+        alert("Invalid link");
+        $("#update-job-btn").removeAttr("disabled");
+        $("#update-job-btn").removeClass("is-loading");
       } else {
         $(".update-job-modal").removeClass("is-active");
         setUserState();
@@ -408,38 +430,63 @@ async function getExploreJobs(page) {
     $("#next-page").css("display", "block");
     jobsExploreDiv.innerHTML = spinner;
     const res = await fetch(
-      `https://api.adzuna.com/v1/api/jobs/gb/search/${
-        page ? page : 1
-      }?app_id=29ab237f&app_key=d10df92d95d2fcaeac4841d5e06c0c43&results_per_page=100&what=software`
+      `https://jobs-api-node-310.herokuapp.com/api/v1/explore/jobs?page=${page}`
     );
     const data = await res.json();
-    if (data) {
+    if (data.msg == "OK") {
       jobsExploreDiv.innerHTML = "";
       console.log(data);
-      const jobs = data.results;
+      const jobs = data.data;
+      $("#next-page").removeAttr("disabled");
+      $("#prev-page").removeAttr("disabled");
+      $("#prev-page").html(
+        `<ion-icon name="arrow-back-circle-outline"></ion-icon>
+        &nbsp;
+        ${data.pageNo - 1}
+        `
+      );
+      $("#curr-page").html(`${data.pageNo} of ${data.totalPages}`);
+      $("#next-page").html(
+        `${data.pageNo + 1}
+        &nbsp;
+        <ion-icon name="arrow-forward-circle-outline"></ion-icon>`
+      );
+      if (data.pageNo == data.totalPages) {
+        $("#next-page").attr("disabled", "disabled");
+      }
+      if (data.pageNo == 1) {
+        $("#prev-page").attr("disabled", "disabled");
+      }
+      if (jobs.length == 0) {
+        jobsExploreDiv.innerHTML = `
+        <div class='has-text-centered has-text-danger'>
+            <h1>No more jobs to show. ☹️</h1>
+        </div>
+        `;
+      }
       jobs.forEach((el, index) => {
         const job = document.createElement("div");
         job.classList.add("jobCard");
         job.innerHTML = `
-            <p class='jobCard-number'>Job #${index + 1}</p>
-            <p class='jobCard-company'>Company - <span>${
-              el.company.display_name
-            }</span></p>
-            <p class='jobCard-pos'>Position - <span>${el.title}</span></p>
+            <p class='jobCard-company'>Company - <span>${el.company}</span></p>
+            <p class='jobCard-pos'>Position - <span>${el.position}</span></p>
             <div class='jobCard-btns'>
             <span class='hoverable-icon' data-title='Save'>
-            <a href='javascript:void(0)' name='${
-              el.id
-            }' class='save-explore-job' ><ion-icon name="bag-add-outline"></ion-icon></a>
+            <a href='javascript:void(0)' 
+            name='${el.id}' 
+            onclick="createJob('${el.company}','${el.position}','${
+          el.url
+        }','pending')"}
+            class='save-explore-job' ><ion-icon name="save-outline"></ion-icon></a>
             </span>
             <span class='hoverable-icon' data-title='Visit'>
-            <a href='${el.redirect_url}' title='${
-          el.company.display_name
-        }' ><ion-icon name="link-outline"></ion-icon></a>
+            <a href='${el.url}' target='_blank' title='${
+          el.company
+        }' ><ion-icon name="send-outline"></ion-icon></a>
             </span>
             </div>
             <p class='jobCard-added'>
-            ${el.location.display_name}
+            ${new Date(el.createdAt).toDateString()}
             </p>
             `;
         jobsExploreDiv.appendChild(job);
@@ -451,12 +498,6 @@ async function getExploreJobs(page) {
     jobsExploreDiv.innerHTML =
       "<p class='has-text-centered has-text-danger'>Something went wrong. <br> Try again after some time! <br> <a href='/explore.html'>Refresh</a></p>";
   }
-}
-
-function saveJobEventBinder() {
-  $(".save-explore-job").on("click", (e) => {
-    console.log("hello");
-  });
 }
 
 function checkUserStatus() {
@@ -554,7 +595,8 @@ $("#add-job-form").on("submit", (e) => {
   const addJobCompany = $("#add-job-company").val();
   const addJobPosition = $("#add-job-pos").val();
   const addJobStatus = $("#add-job-status").val();
-  createJob(addJobCompany, addJobPosition, addJobStatus);
+  const addJobLink = $("#add-job-link").val();
+  createJob(addJobCompany, addJobPosition, addJobLink, addJobStatus);
   $("#add-job-btn").attr("disabled", "disabled");
   $("#add-job-btn").addClass("is-loading");
 });
@@ -578,6 +620,7 @@ $("#delete-job-btn").on("click", (e) => {
 function fillJobData(id) {
   $("#update-job-company").val("");
   $("#update-job-pos").val("");
+  $("#update-job-link").val("");
   $("#update-job-status").val("pending");
   $("#update-job-form .control").addClass("is-loading");
   getSingleJob(id).then((job) => {
@@ -585,6 +628,7 @@ function fillJobData(id) {
       $("#update-job-form .control").removeClass("is-loading");
       $("#update-job-company").val(job.company);
       $("#update-job-pos").val(job.position);
+      $("#update-job-link").val(job.link);
       $("#update-job-status").val(job.status);
     }
   });
@@ -605,22 +649,20 @@ $("#update-job-form").on("submit", (e) => {
   const updateJobCompany = $("#update-job-company").val();
   const updateJobPosition = $("#update-job-pos").val();
   const updateJobStatus = $("#update-job-status").val();
+  const updateJobLink = $("#update-job-link").val();
   updateJob(id, {
     company: updateJobCompany,
     position: updateJobPosition,
+    link: updateJobLink,
     status: updateJobStatus,
   });
   $("#update-job-btn").attr("disabled", "disabled");
   $("#update-job-btn").addClass("is-loading");
 });
 
-$("#explore-jobs").on("click", () => {
-  getExploreJobs();
-});
-
+// explore page pagination handlers
 $("#next-page").click(() => {
   page++;
-  $("#next-page").html(`Page-${page} &#8226; Next Page`);
   getExploreJobs(page);
   let x = null;
   if (x) {
@@ -629,6 +671,19 @@ $("#next-page").click(() => {
   $("#next-page").attr("disabled", "disabled");
   setTimeout(() => {
     $("#next-page").removeAttr("disabled");
+  }, 2000);
+});
+
+$("#prev-page").click(() => {
+  page--;
+  getExploreJobs(page);
+  let x = null;
+  if (x) {
+    clearTimeout(x);
+  }
+  $("#prev-page").attr("disabled", "disabled");
+  setTimeout(() => {
+    $("#prev-page").removeAttr("disabled");
   }, 2000);
 });
 

@@ -17,7 +17,18 @@
     <link rel="icon" href="./img/JobEase-logo.png" type="image/x-icon" />
   </head>
   <title>JobEase &#8226; Dash </title>
-
+  <style>
+    #prev-page, #next-page{
+      display: flex !important;
+      align-items: center;
+      font-size: 1rem;
+    }
+    .jobCard{
+      background-color: #1b1b1b!important;
+      border: 1px solid #296fa8;
+      backdrop-filter: blur(5px);
+    }
+  </style>
   <body class="m-0 p-0">
     <nav
       class="navbar has-background-black-bis is-fixed-top"
@@ -151,7 +162,11 @@
           </div>
 
           </div>
-          <button class="button is-dark is-small mb-4 mx-6" id='next-page'>Page-1 &#8226; Next Page</button>
+          <div class="pagination-controls is-flex is-justify-content-center is-align-items-center">
+            <button class="button is-info has-text-white is-small mb-4 mx-6" id='prev-page'></button>
+            <span class="has-text-centered has-text-info" id="curr-page"></span>
+            <button class="button is-info has-text-white is-small mb-4 mx-6" id='next-page'></button>
+          </div>
           <div
             class="
               is-flex
