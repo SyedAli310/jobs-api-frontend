@@ -7,3 +7,13 @@ force = true
 from = "/login.html"
 to = "/login"
 force = true
+
+[[redirects]]
+from = "/register.html"
+to = "/register"
+force = true
+
+[[redirects]]
+from = "/explore.html"
+to = "/explore"
+force = true
