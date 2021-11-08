@@ -10,17 +10,14 @@ let page = 1;
 
 async function login(email, password) {
   try {
-    const res = await fetch(
-      "https://jobs-api-node-310.herokuapp.com/api/v1/auth/login",
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: email, password: password }),
-      }
-    );
+    const res = await fetch("https://jobease.herokuapp.com/api/v1/auth/login", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: email, password: password }),
+    });
     const data = await res.json();
     if (data.msg == "OK") {
       console.log(data);
@@ -66,7 +63,7 @@ async function login(email, password) {
 async function register(name, email, password) {
   try {
     const res = await fetch(
-      "https://jobs-api-node-310.herokuapp.com/api/v1/auth/register",
+      "https://jobease.herokuapp.com/api/v1/auth/register",
       {
         method: "POST",
         headers: {
@@ -123,7 +120,7 @@ async function getJobs() {
     jobsDiv.innerHTML = spinner;
     const token = localStorage.getItem("accessToken");
     const res = await fetch(
-      "https://jobs-api-node-310.herokuapp.com/api/v1/jobs?sort=-createdAt",
+      "https://jobease.herokuapp.com/api/v1/jobs?sort=-createdAt",
       {
         method: "GET",
         headers: {
@@ -208,17 +205,14 @@ async function getJobs() {
 async function getSingleJob(id) {
   try {
     const token = localStorage.getItem("accessToken");
-    const res = await fetch(
-      "https://jobs-api-node-310.herokuapp.com/api/v1/jobs/" + id,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await fetch("https://jobease.herokuapp.com/api/v1/jobs/" + id, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = await res.json();
     if (data.msg === "OK") {
       console.log("Single Job", data);
@@ -249,23 +243,20 @@ async function getSingleJob(id) {
 async function createJob(company, position, link, status) {
   try {
     const token = localStorage.getItem("accessToken");
-    const res = await fetch(
-      "https://jobs-api-node-310.herokuapp.com/api/v1/jobs",
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          company: company,
-          position: position,
-          link: link,
-          status: status,
-        }),
-      }
-    );
+    const res = await fetch("https://jobease.herokuapp.com/api/v1/jobs", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        company: company,
+        position: position,
+        link: link,
+        status: status,
+      }),
+    });
     const data = await res.json();
     console.log(data);
     if (data.msg == "Created") {
@@ -327,17 +318,14 @@ async function createJob(company, position, link, status) {
 async function deleteJob(id) {
   try {
     const token = localStorage.getItem("accessToken");
-    const res = await fetch(
-      "https://jobs-api-node-310.herokuapp.com/api/v1/jobs/" + id,
-      {
-        method: "DELETE",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const res = await fetch("https://jobease.herokuapp.com/api/v1/jobs/" + id, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = await res.json();
     console.log(data);
     if (data.msg == "OK") {
@@ -373,18 +361,15 @@ async function deleteJob(id) {
 async function updateJob(id, updatedData) {
   try {
     const token = localStorage.getItem("accessToken");
-    const res = await fetch(
-      "https://jobs-api-node-310.herokuapp.com/api/v1/jobs/" + id,
-      {
-        method: "PATCH",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(updatedData),
-      }
-    );
+    const res = await fetch("https://jobease.herokuapp.com/api/v1/jobs/" + id, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedData),
+    });
     const data = await res.json();
     console.log(data);
     if (data.msg == "OK") {
@@ -440,7 +425,7 @@ async function getExploreJobs(page) {
     $("#next-page").css("display", "block");
     jobsExploreDiv.innerHTML = spinner;
     const res = await fetch(
-      `https://jobs-api-node-310.herokuapp.com/api/v1/explore/jobs?page=${page}`
+      `https://jobease.herokuapp.com/api/v1/explore/jobs?page=${page}`
     );
     const data = await res.json();
     if (data.msg == "OK") {
