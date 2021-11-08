@@ -30,7 +30,10 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-thumb:hover {
   background: slateblue;
 }
-
+input[type="radio"],
+input[type="checkbox"] {
+  accent-color: #296fa8;
+}
 nav {
   margin-top: 0 !important;
   box-shadow: 1px 1px 10px #222121;
@@ -45,7 +48,15 @@ main {
 ion-icon {
   pointer-events: none;
 }
-
+.modal-card-head {
+  border-bottom: none !important;
+}
+.modal-card-foot {
+  border-top: none !important;
+}
+.modal-card-body {
+  border-top: 1px solid grey !important;
+}
 .hero {
   border-radius: 10px !important;
 }
@@ -182,6 +193,10 @@ ion-icon {
     border: unset;
     border-radius: 10px;
   }
+  .all-jobs-header {
+    justify-content: center !important;
+    flex-direction: column !important;
+  }
 }
 
 .menu {
@@ -263,7 +278,9 @@ ion-icon {
     width: 100%;
   }
 }
-
+.jobCard {
+  min-width: 30vw !important;
+}
 .jobCard:not(.hoverable-icon) {
   border-radius: 4px;
   outline: 1px solid slateblue;
@@ -333,6 +350,27 @@ ion-icon {
 .input::placeholder {
   color: lightgray;
   opacity: 0.35;
+}
+
+.filter-sort-links {
+  width: fit-content;
+  display: flex;
+  gap: 4px;
+}
+.filter-sort-link {
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+  width: fit-content;
+  font-size: larger;
+  text-align: center;
+  border: 1px solid #1b1b1b;
+  border-radius: 2px;
+  transition: all ease 300ms;
+}
+.filter-sort-link:hover {
+  background-color: #1b1b1b;
+  color: #fff;
 }
 
 /* custom spinner styles */

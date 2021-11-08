@@ -115,12 +115,14 @@ async function register(name, email, password) {
   }
 }
 
-async function getJobs() {
+async function getJobs(statusList, sortBy) {
   try {
     jobsDiv.innerHTML = spinner;
     const token = localStorage.getItem("accessToken");
     const res = await fetch(
-      "https://jobease.herokuapp.com/api/v1/jobs?sort=-createdAt",
+      `https://jobease.herokuapp.com/api/v1/jobs?sort=${
+        sortBy ? sortBy : "-createdAt"
+      }&status=${statusList ? statusList : ""}`,
       {
         method: "GET",
         headers: {
@@ -131,13 +133,32 @@ async function getJobs() {
       }
     );
     const data = await res.json();
+    if (statusList || sortBy) {
+      $("#filter-sort-submit-btn").removeAttr("disabled");
+      $("#filter-sort-submit-btn").removeClass("is-loading");
+    }
     if (data.msg === "OK") {
       console.log(data);
       const jobs = data.jobs;
       jobsDiv.innerHTML = "";
       if (data.count == 0 || jobs.length < 1) {
-        jobsDiv.innerHTML = `<h1 class='has-text-danger'>You have no jobs added to your account.</h1>`;
+        jobsDiv.innerHTML = `<h1 class='has-text-danger' style='text-align:center !important; width:100%;'>You have no jobs added to your account.</h1>`;
       } else {
+        $(".all-jobs-header").html(
+          `
+          <h1 class='is-size-5 has-text-weight-bold is-flex is-align-items-center' style='color:#312A58;'>
+          <ion-icon name="bookmark-outline"></ion-icon> 
+          &nbsp;<u>You have ${data.count} ${
+            statusList ? statusList : "saved"
+          } jobs</u>
+          </h1>
+          <div class='filter-sort-links'>
+          <a href='javascript:void(0)' id='filter-sort-btn' class='is-link filter-sort-link'>
+              <ion-icon name="funnel-outline"></ion-icon>&nbsp;Filters
+          </a>
+          </div>
+          `
+        );
         jobs.forEach((el, index) => {
           const job = document.createElement("div");
           job.classList.add("jobCard");
@@ -178,6 +199,7 @@ async function getJobs() {
         });
         deleteJobEventBinder();
         updateJobEventBinder();
+        filter_sort_binder();
       }
     } else {
       if (data.msg == "Authentication Invalid") {
@@ -493,6 +515,43 @@ async function getExploreJobs(page) {
     jobsExploreDiv.innerHTML =
       "<p class='has-text-centered has-text-danger'>Something went wrong. <br> Try again after some time! <br> <a href='/explore.html'>Refresh</a></p>";
   }
+}
+
+function filter_sort_binder() {
+  $(".filter-sort-modal-close").on("click", () => {
+    $("#filter-sort-modal").removeClass("is-active");
+  });
+
+  $("#filter-sort-btn").on("click", () => {
+    console.log("filter");
+    $("#filter-sort-modal").addClass("is-active");
+  });
+
+  $("#filter-sort-form").on("submit", (e) => {
+    e.preventDefault();
+    $("#filter-sort-submit-btn").attr("disabled", "disabled");
+    $("#filter-sort-submit-btn").addClass("is-loading");
+    //get filters
+    let checkboxes = document.querySelectorAll(
+      "#filter-sort-form input[type=checkbox]:checked"
+    );
+    const filters = [];
+    checkboxes.forEach((checkbox) => {
+      filters.push(checkbox.value);
+    });
+    const statusList = filters.join(",");
+
+    //get sortBy
+    let radio = document.querySelector(
+      "#filter-sort-form input[type=radio]:checked"
+    );
+    const sortBy = radio.value;
+
+    console.log("statusList", statusList);
+    console.log("sortBy", sortBy);
+    // get filtered & sorted jobs
+    getJobs(statusList, sortBy);
+  });
 }
 
 function checkUserStatus() {

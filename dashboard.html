@@ -17,7 +17,12 @@
     <link rel="icon" href="./img/JobEase-logo.png" type="image/x-icon" />
   </head>
   <title>JobEase &#8226; Dash </title>
-
+  <style>
+    #filter-sort-form .radio{
+      margin-right: 1rem;
+      margin-bottom: 00.5rem;
+    }
+  </style>
   <body class="m-0 p-0">
     <nav
       class="navbar has-background-black-bis is-fixed-top"
@@ -153,7 +158,7 @@
           <div class="mb-5 has-text-centered" id="add-job-btn-div">
             <a
               href="javascript:void(0)"
-              class="button is-success is-medium modal-open-cst my-2"
+              class="button is-success modal-open-cst my-2"
             >
               <ion-icon
                 name="bag-add-outline"
@@ -163,7 +168,7 @@
             </a>
             <a
               href="/explore.html"
-              class="button is-info is-medium my-2"
+              class="button is-info my-2"
             >
               <ion-icon
                 name="eye-outline"
@@ -172,11 +177,11 @@
               >&nbsp;Explore Jobs
             </a>
           </div>
-
+          <div class="all-jobs-header mb-6 is-flex is-align-items-center is-justify-content-space-between is-flex-wrap-wrap" style="gap: 0.5rem;"></div>
           <div
             class="
               is-flex
-              is-justify-content-center
+              is-justify-content-flex-start
               is-align-content-center
               is-flex-wrap-wrap
             "
@@ -364,6 +369,90 @@
               <ion-icon name="bag-remove-outline"></ion-icon>&nbsp;delete
             </button>
             <button class="button is-dark confirm-modal-close">cancel</button>
+          </footer>
+        </div>
+      </div>
+
+    <div class="modal" id="filter-sort-modal">
+        <div class="modal-background"></div>
+        <div
+          class="modal-card has-shadow"
+          style="border: 1px solid #fff; border-radius: 8px; min-height: unset !important;"
+        >
+          <header class="modal-card-head has-background-black-bis">
+            <p class="modal-card-title has-text-info">Filters & Sort</p>
+            <button
+              class="filter-sort-modal-close delete has-background-danger"
+              aria-label="close"
+            ></button>
+          </header>
+          <section class="modal-card-body has-background-black-bis">
+            <div>
+              <form id='filter-sort-form'>
+                <div>
+                    <p class='has-text-white mb-2'>Filter by status</p>
+                    <label class="checkbox">
+                      <input type="checkbox" value="pending">
+                      <span>pending</span>
+                    </label>
+                    <label class="checkbox">
+                      <input type="checkbox" value="interview">
+                      <span>interview</span>
+                    </label>
+                    <label class="checkbox">
+                      <input type="checkbox" value="declined">
+                      <span>declined</span>
+                    </label>
+                  </div>
+                  <div class="mt-4">
+                    <p class='has-text-white mb-2'>Sort By</p>
+                    <div class="control">
+                      <label class="radio">
+                        <input type="radio" name="sortFilter" value="-createdAt" checked>
+                        Newest
+                      </label>
+                      <label class="radio">
+                        <input type="radio" name="sortFilter" value="createdAt">
+                        Oldest
+                      </label>
+                      <br>
+                      <label class="radio">
+                        <input type="radio" name="sortFilter" value="updatedAt">
+                        Oldest Updated
+                      </label>
+                      <label class="radio">
+                        <input type="radio" name="sortFilter" value="-updatedAt">
+                        Latest Updated
+                      </label>
+                    </div>
+                    <div class="control">
+                      <label class="radio">
+                        <input type="radio" name="sortFilter" value="company">
+                        Company[A-Z]
+                      </label>
+                      <label class="radio">
+                        <input type="radio" name="sortFilter" value="-company">
+                        Company[Z-A]
+                      </label>
+                      <br>
+                      <label class="radio">
+                        <input type="radio" name="sortFilter" value="position">
+                        Position[A-Z]
+                      </label>
+                      <label class="radio">
+                        <input type="radio" name="sortFilter" value="-position">
+                        Position[Z-A]
+                      </label>
+                    </div>
+                  </div>
+                  <button type='submit' class="button is-small is-info ml-auto mt-4" id="filter-sort-submit-btn">
+                    <ion-icon name="checkmark-outline"></ion-icon>&nbsp;apply
+                  </button>
+              </form>    
+            </div>
+          </section>
+          <footer class="modal-card-foot has-background-black-bis">
+            <button class="button is-dark filter-sort-modal-close ml-auto">cancel</button>
           </footer>
         </div>
       </div>
