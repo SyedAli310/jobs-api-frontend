@@ -142,6 +142,7 @@ async function getJobs(statusList, sortBy) {
       const jobs = data.jobs;
       jobsDiv.innerHTML = "";
       if (data.count == 0 || jobs.length < 1) {
+        $(".all-jobs-header").html('')
         jobsDiv.innerHTML = `
         <div class='has-text-centered'  style='width:100%;'>
         <h1 class='has-text-danger'>
@@ -227,7 +228,12 @@ async function getJobs(statusList, sortBy) {
     }
   } catch (error) {
     console.log(error.message);
-    jobsDiv.innerHTML = error.message + ". Please try again after some time!";
+    jobsDiv.innerHTML = `
+    <div class='has-text-centered' style='width:100%'>
+    <h1 class='has-text-danger'>${error.message} <br/> Please try again after some time!</h1>
+    <img src='./img/error.gif' height='140' width='140' alt='ERROR' />
+    </div>
+    `;
     setUserState();
   }
 }
@@ -251,10 +257,12 @@ async function getSingleJob(id) {
       if (data.msg == "Authentication Invalid") {
         setUserState();
         jobsDiv.innerHTML = `
-        <div class='has-text-centered'>
+        <div class='has-text-centered'  style='width:100%;'>
+            <img src='./img/khaby.gif' height='100' width='100' alt='POG' />
             <h1>Login to start adding and managing jobs.</h1>
             <br>
             <a class='button is-info' href='./login.html'>Login</a>
+            <a class='button is-dark' href='./explore.html'>Explore</a>
         </div>
         `;
       } else {
@@ -265,7 +273,13 @@ async function getSingleJob(id) {
   } catch (error) {
     console.log(error.message);
     $(".update-job-modal").removeClass("is-active");
-    jobsDiv.innerHTML = error.message + ". Please try again after some time!";
+    jobsDiv.innerHTML = 
+    `
+    <div class='has-text-centered' style='width:100%'>
+    <h1 class='has-text-danger'>${error.message} <br/> Please try again after some time!</h1>
+    <img src='./img/error.gif' height='140' width='140' alt='ERROR' />
+    </div>
+    `;
     setUserState();
   }
 }
@@ -310,10 +324,12 @@ async function createJob(company, position, link, status) {
         setUserState();
         if (window.location.pathname.includes("dashboard")) {
           jobsDiv.innerHTML = `
-          <div class='has-text-centered'>
-              <h1>Login to start adding and managing jobs.</h1>
-              <br>
-              <a class='button is-info' href='./login.html'>Login</a>
+          <div class='has-text-centered'  style='width:100%;'>
+            <img src='./img/khaby.gif' height='100' width='100' alt='POG' />
+            <h1>Login to start adding and managing jobs.</h1>
+            <br>
+            <a class='button is-info' href='./login.html'>Login</a>
+            <a class='button is-dark' href='./explore.html'>Explore</a>
           </div>
           `;
         } else {
@@ -337,7 +353,12 @@ async function createJob(company, position, link, status) {
     console.log(error.message);
     $(".add-job-modal").removeClass("is-active");
     if (window.location.pathname.includes("dashboard")) {
-      jobsDiv.innerHTML = error.message + ". Please try again after some time!";
+      jobsDiv.innerHTML = `
+      <div class='has-text-centered' style='width:100%'>
+      <h1 class='has-text-danger'>${error.message} <br/> Please try again after some time!</h1>
+      <img src='./img/error.gif' height='140' width='140' alt='ERROR' />
+      </div>
+      `;
     } else {
       alert(error.message + ". Please try again after some time!");
     }
@@ -368,10 +389,12 @@ async function deleteJob(id) {
         $("#confirm-msg-modal").removeClass("is-active");
         setUserState();
         jobsDiv.innerHTML = `
-        <div class='has-text-centered'>
-            <h1>Login to start adding and managing jobs.</h1>
-            <br>
-            <a class='button is-info' href='./login.html'>Login</a>
+        <div class='has-text-centered'  style='width:100%;'>
+          <img src='./img/khaby.gif' height='100' width='100' alt='POG' />
+          <h1>Login to start adding and managing jobs.</h1>
+          <br>
+          <a class='button is-info' href='./login.html'>Login</a>
+          <a class='button is-dark' href='./explore.html'>Explore</a>
         </div>
         `;
       } else {
@@ -383,7 +406,12 @@ async function deleteJob(id) {
   } catch (error) {
     console.log(error.message);
     $("#confirm-msg-modal").removeClass("is-active");
-    jobsDiv.innerHTML = error.message + ". Please try again after some time!";
+    jobsDiv.innerHTML = `
+    <div class='has-text-centered' style='width:100%'>
+    <h1 class='has-text-danger'>${error.message} <br/> Please try again after some time!</h1>
+    <img src='./img/error.gif' height='140' width='140' alt='ERROR' />
+    </div>
+    `;
     setUserState();
   }
 }
@@ -426,10 +454,12 @@ async function updateJob(id, updatedData) {
         $(".update-job-modal").removeClass("is-active");
         setUserState();
         jobsDiv.innerHTML = `
-        <div class='has-text-centered'>
-            <h1>Login to start adding and managing jobs.</h1>
-            <br>
-            <a class='button is-info' href='./login.html'>Login</a>
+        <div class='has-text-centered'  style='width:100%;'>
+          <img src='./img/khaby.gif' height='100' width='100' alt='POG' />
+          <h1>Login to start adding and managing jobs.</h1>
+          <br>
+          <a class='button is-info' href='./login.html'>Login</a>
+          <a class='button is-dark' href='./explore.html'>Explore</a>
         </div>
         `;
       } else if (data.msg == "Invalid link") {
@@ -445,7 +475,12 @@ async function updateJob(id, updatedData) {
   } catch (error) {
     console.log(error.message);
     $(".update-job-modal").removeClass("is-active");
-    jobsDiv.innerHTML = error.message + ". Please try again after some time!";
+    jobsDiv.innerHTML = `
+    <div class='has-text-centered' style='width:100%'>
+    <h1 class='has-text-danger'>${error.message} <br/> Please try again after some time!</h1>
+    <img src='./img/error.gif' height='140' width='140' alt='ERROR' />
+    </div>
+    `;
     setUserState();
   }
 }
@@ -520,8 +555,14 @@ async function getExploreJobs(page) {
   } catch (error) {
     console.log(error.message);
     $("#next-page").css("display", "none");
-    jobsExploreDiv.innerHTML =
-      "<p class='has-text-centered has-text-danger'>Something went wrong. <br> Try again after some time! <br> <a href='/explore.html'>Refresh</a></p>";
+    jobsExploreDiv.innerHTML =`
+    <div class='has-text-centered mx-6' style='width:100%'>
+      <h1 class='has-text-danger mb-2'>Something went wrong. Try again after some time!</h1>
+      <a href='/explore.html'>Refresh</a>
+      <br>
+      <img src='./img/error.gif' height='140' width='140' alt='ERROR' />
+    </div>
+    `;
   }
 }
 
