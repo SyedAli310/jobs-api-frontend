@@ -22,6 +22,37 @@
       margin-right: 1rem;
       margin-bottom: 00.5rem;
     }
+    #saved-jobs-search-btn{
+      position: absolute;
+      right: 1px;
+      top: 50%;
+      transform: translate(0%,-50%);
+      cursor: pointer;
+      color: #485fc7;
+      background-color: transparent;
+      outline: none;
+      border-radius: 0px !important;
+      border-left: 1px solid #485fc7;
+      border-right: none;
+      border-top: none;
+      border-bottom: none;
+      height: 95%;
+    }
+    #saved-jobs-search-btn ion-icon{
+      display: block;
+    }
+    #saved-jobs-search-form .input{
+      font-size: 15px;
+      padding-right: 4rem;
+    }
+    .filter-sort-links .search-jobs-div .input{
+      color: #fff;
+      border-radius: 5px;
+      border:1px solid #485fc7 !important;
+    }
+    .filter-sort-links a{
+      border-radius: 5px;
+    }
   </style>
   <body class="m-0 p-0">
     <nav
@@ -147,34 +178,54 @@
             </h1>
             <span id="username-dash" style="color: #fff"></span>
           </div>
-
-          <div class="mb-5 has-text-centered" id="add-job-btn-div">
-            <a
-              href="javascript:void(0)"
-              class="button is-success modal-open-cst my-2"
-            >
-              <ion-icon
-                name="bag-add-outline"
-                style="font-size: larger"
-              ></ion-icon
-              >&nbsp;Add new Job
-            </a>
-            <a
-              href="/explore.html"
-              class="button is-info my-2"
-            >
-              <ion-icon
-                name="earth-outline"
-                style="font-size: larger"
-              ></ion-icon
-              >&nbsp;Explore Jobs
-            </a>
+          
+          <div class="mb-2 has-text-centered is-flex is-align-items-center is-justify-content-center is-flex-wrap-nowrap" id="add-job-btn-div" style="gap: 0.5rem;">
+             <a
+             href="javascript:void(0)"
+             class="button is-success modal-open-cst my-2"
+             >
+             <ion-icon
+             name="bag-add-outline"
+             style="font-size: larger"
+             ></ion-icon
+             >&nbsp;Add Job
+           </a>
+           <a
+           href="/explore.html"
+           class="button is-info my-2"
+           >
+           <ion-icon
+           name="earth-outline"
+           style="font-size: larger"
+           ></ion-icon
+           >&nbsp;Explore
+         </a>
+      </div>
+      <div class="all-jobs-header mb-6 is-flex is-align-items-center is-justify-content-space-between is-flex-wrap-wrap" style="gap: 0.5rem;">
+        <h1 class='is-size-5 has-text-weight-bold is-flex is-align-items-center' id="dyn-jobs-header-msg" style='color:#312A58;'></h1>
+          <div class='filter-sort-links'>
+          <a href='javascript:void(0)' id='filter-sort-btn' class='is-link filter-sort-link'>
+              <ion-icon name="funnel-outline"></ion-icon>&nbsp;Filters
+          </a>
+          <div class="search-jobs-div">
+            <form id="saved-jobs-search-form">
+              <div class="control is-small has-icons-left has-icons-right ">
+                <input class="input is-small has-background-black" type="text" placeholder="search by company..."  autocomplete="off" id="saved-jobs-search-input">
+                <span class="icon is-large is-left">
+                  <ion-icon name="search-outline" style="font-size: 1.25rem; margin-top: 0.5rem; margin-left: 0.5rem;"></ion-icon>
+                </span>
+                <button type="submit" class="button" id="saved-jobs-search-btn">
+                  <ion-icon name="arrow-forward-outline"></ion-icon>
+                </button>
+              </div>
+            </form>
+        </div>
           </div>
-          <div class="all-jobs-header mb-6 is-flex is-align-items-center is-justify-content-space-between is-flex-wrap-wrap" style="gap: 0.5rem;"></div>
+      </div>
           <div
             class="
               is-flex
-              is-justify-content-flex-start
+              is-justify-content-center
               is-align-content-center
               is-flex-wrap-wrap
             "
@@ -478,6 +529,7 @@
           )}</span>`
         )
       : "";
+ 
     window.onload = getJobs();
     document.title += localStorage.getItem('loggedUser') ? ` / ${localStorage.getItem('loggedUser')}` : ''
   </script>

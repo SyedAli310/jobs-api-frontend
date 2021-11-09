@@ -215,6 +215,9 @@ ion-icon {
     justify-content: center !important;
     flex-direction: column !important;
   }
+  .all-jobs-header u {
+    text-align: center !important;
+  }
 }
 
 .menu {
@@ -382,7 +385,7 @@ ion-icon {
   width: fit-content;
   font-size: larger;
   text-align: center;
-  border: 1px solid #1b1b1b;
+  border: 1px solid #485fc7;
   border-radius: 2px;
   transition: all ease 300ms;
 }

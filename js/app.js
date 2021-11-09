@@ -115,14 +115,16 @@ async function register(name, email, password) {
   }
 }
 
-async function getJobs(statusList, sortBy) {
+async function getJobs(statusList, sortBy, companyQuery) {
   try {
     jobsDiv.innerHTML = spinner;
     const token = localStorage.getItem("accessToken");
     const res = await fetch(
       `https://jobease.herokuapp.com/api/v1/jobs?sort=${
         sortBy ? sortBy : "-createdAt"
-      }&status=${statusList ? statusList : ""}`,
+      }&status=${statusList ? statusList : ""}&company=${
+        companyQuery ? companyQuery : ""
+      }`,
       {
         method: "GET",
         headers: {
@@ -133,41 +135,58 @@ async function getJobs(statusList, sortBy) {
       }
     );
     const data = await res.json();
+    $("#saved-jobs-search-btn").removeAttr("disabled");
+    $("#saved-jobs-search-btn").removeClass("is-loading");
     if (statusList || sortBy) {
       $("#filter-sort-submit-btn").removeAttr("disabled");
       $("#filter-sort-submit-btn").removeClass("is-loading");
-      $('#filter-sort-modal').removeClass('is-active');
+      $("#filter-sort-modal").removeClass("is-active");
     }
     if (data.msg === "OK") {
       console.log(data);
       const jobs = data.jobs;
       jobsDiv.innerHTML = "";
       if (data.count == 0 || jobs.length < 1) {
-        $(".all-jobs-header").html('')
-        jobsDiv.innerHTML = `
-        <div class='has-text-centered'  style='width:100%;'>
-        <h1 class='has-text-danger'>
-        You have no jobs saved in your account.
-        </h1>
-        <img class='mt-5' src='./img/why-${Math.ceil(Math.random()*4)}.gif' height='100' width='130' alt='POG' />
-        </div>
-        `;
+        if (companyQuery) {
+          jobsDiv.innerHTML = `
+            <div class='has-text-centered'  style='width:100%;'>
+              <h1 class='has-text-danger'>
+                No jobs found for <i class='has-text-white'>'${companyQuery}'</i>
+              </h1>
+              <img class='mt-5' src='./img/error.gif' height='100' width='130' alt='POG' />
+            </div>
+          `;
+        } else {
+          $("#dyn-jobs-header-msg").html("");
+          $(".filter-sort-links").css("display", "none");
+          jobsDiv.innerHTML = `
+          <div class='has-text-centered'  style='width:100%;'>
+          <h1 class='has-text-danger'>
+          You have no jobs saved in your account.
+          </h1>
+          <img class='mt-5' src='./img/why-${Math.ceil(
+            Math.random() * 4
+          )}.gif' height='100' width='130' alt='POG' />
+          </div>
+          `;
+        }
       } else {
-        $(".all-jobs-header").html(
-          `
-          <h1 class='is-size-5 has-text-weight-bold is-flex is-align-items-center' style='color:#312A58;'>
+        if (companyQuery) {
+          $("#dyn-jobs-header-msg").html(`
           <ion-icon name="bookmark-outline"></ion-icon> 
-          &nbsp;<u>You have ${data.count} ${
+          &nbsp;
+          <u>${jobs.length} jobs found matching <i class='has-text-white'>'${companyQuery}'</i></u>
+          `);
+        } else {
+          $("#dyn-jobs-header-msg").html(`
+            <ion-icon name="bookmark-outline"></ion-icon> 
+            &nbsp;
+            <u>You have ${jobs.length} ${
             statusList ? statusList : "saved"
           } jobs</u>
-          </h1>
-          <div class='filter-sort-links'>
-          <a href='javascript:void(0)' id='filter-sort-btn' class='is-link filter-sort-link'>
-              <ion-icon name="funnel-outline"></ion-icon>&nbsp;Filters
-          </a>
-          </div>
-          `
-        );
+          `);
+        }
+        $(".filter-sort-links").css("display", "flex");
         // <p class='jobCard-number'>#${index + 1}</p>
         jobs.forEach((el, index) => {
           const job = document.createElement("div");
@@ -175,14 +194,20 @@ async function getJobs(statusList, sortBy) {
           job.innerHTML = `
               <span class='jobCard-last-upd'><span class='has-text-info'>Last Updated:</span> ${new Date(
                 el.updatedAt
-              ).toDateString()}, at ${new Date(el.updatedAt).toLocaleTimeString()}
+              ).toDateString()}, at ${new Date(
+            el.updatedAt
+          ).toLocaleTimeString()}
               </span>
               <p class='jobCard-company'>Company - <span>${
                 el.company
               }</span></p>
               <p class='jobCard-pos'>Position - <span>${el.position}</span></p>
               <p class='jobCard-status'>Status - <span>${el.status}</span></p>
-              <p class='jobCard-added'>Added - <span>${new Date(el.createdAt).toDateString()}, at ${new Date(el.createdAt).toLocaleTimeString()}</span></p>
+              <p class='jobCard-added'>Added - <span>${new Date(
+                el.createdAt
+              ).toDateString()}, at ${new Date(
+            el.createdAt
+          ).toLocaleTimeString()}</span></p>
               <hr class='mx-4 has-background-dark'>
               <div class='jobCard-btns'>
               <span class='hoverable-icon' data-title='Visit'>
@@ -229,6 +254,8 @@ async function getJobs(statusList, sortBy) {
     }
   } catch (error) {
     console.log(error.message);
+    $("#saved-jobs-search-btn").removeAttr("disabled");
+    $("#saved-jobs-search-btn").removeClass("is-loading");
     jobsDiv.innerHTML = `
     <div class='has-text-centered' style='width:100%'>
     <h1 class='has-text-danger'>${error.message} <br/> Please try again after some time!</h1>
@@ -274,8 +301,7 @@ async function getSingleJob(id) {
   } catch (error) {
     console.log(error.message);
     $(".update-job-modal").removeClass("is-active");
-    jobsDiv.innerHTML = 
-    `
+    jobsDiv.innerHTML = `
     <div class='has-text-centered' style='width:100%'>
     <h1 class='has-text-danger'>${error.message} <br/> Please try again after some time!</h1>
     <img src='./img/error.gif' height='140' width='140' alt='ERROR' />
@@ -336,19 +362,17 @@ async function createJob(company, position, link, status) {
         } else {
           alert("Login to start adding and managing jobs.");
         }
-      } else if(data.msg.includes('Please provide')){
+      } else if (data.msg.includes("Please provide")) {
         $("#add-job-btn").removeAttr("disabled");
         $("#add-job-btn").removeClass("is-loading");
-        if(data.msg.includes('company')){
+        if (data.msg.includes("company")) {
           alert("Company name too long. Please choose a shorter name");
-        } 
-        else if(data.msg.includes('position')){
+        } else if (data.msg.includes("position")) {
           alert("Position name too long. Please choose a shorter name");
-        } else{
-          alert('Something went wrong. Please try again.')
+        } else {
+          alert("Something went wrong. Please try again.");
         }
-      }
-      else if (data.msg == "Invalid link") {
+      } else if (data.msg == "Invalid link") {
         alert("Invalid link");
         $("#add-job-btn").removeAttr("disabled");
         $("#add-job-btn").removeClass("is-loading");
@@ -568,7 +592,7 @@ async function getExploreJobs(page) {
   } catch (error) {
     console.log(error.message);
     $("#next-page").css("display", "none");
-    jobsExploreDiv.innerHTML =`
+    jobsExploreDiv.innerHTML = `
     <div class='has-text-centered mx-6' style='width:100%'>
       <h1 class='has-text-danger mb-2'>Something went wrong. Try again after some time!</h1>
       <a href='/explore.html'>Refresh</a>
@@ -613,6 +637,15 @@ function filter_sort_binder() {
     console.log("sortBy", sortBy);
     // get filtered & sorted jobs
     getJobs(statusList, sortBy);
+  });
+
+  // search saved job handlers
+  $("#saved-jobs-search-form").on("submit", (e) => {
+    e.preventDefault();
+    $("#saved-jobs-search-btn").attr("disabled", "disabled");
+    $("#saved-jobs-search-btn").addClass("is-loading");
+    const search = $("#saved-jobs-search-input").val();
+    getJobs("", "-createdAt", search);
   });
 }
 
