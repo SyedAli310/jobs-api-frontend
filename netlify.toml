@@ -20,6 +20,6 @@ force = true
 
 [[redirects]]
 from = "/*"
-to = "/404.html"
+to = "/not-found.html"
 status = 404
-force= true
+
