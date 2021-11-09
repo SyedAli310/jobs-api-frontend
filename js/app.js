@@ -142,7 +142,14 @@ async function getJobs(statusList, sortBy) {
       const jobs = data.jobs;
       jobsDiv.innerHTML = "";
       if (data.count == 0 || jobs.length < 1) {
-        jobsDiv.innerHTML = `<h1 class='has-text-danger' style='text-align:center !important; width:100%;'>You have no jobs added to your account.</h1>`;
+        jobsDiv.innerHTML = `
+        <div class='has-text-centered'  style='width:100%;'>
+        <h1 class='has-text-danger'>
+        You have no jobs added to your account.
+        </h1>
+        <img class='mt-5' src='./img/why-${Math.ceil(Math.random()*4)}.gif' height='100' width='130' alt='POG' />
+        </div>
+        `;
       } else {
         $(".all-jobs-header").html(
           `
