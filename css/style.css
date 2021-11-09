@@ -34,6 +34,9 @@ input[type="radio"],
 input[type="checkbox"] {
   accent-color: #296fa8;
 }
+.checkbox span, .radio {
+  color: #296fa8;
+}
 nav {
   margin-top: 0 !important;
   box-shadow: 1px 1px 10px #222121;
