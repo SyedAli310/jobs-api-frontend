@@ -160,7 +160,7 @@ async function getJobs(statusList, sortBy, companyQuery) {
           $("#dyn-jobs-header-msg").html("");
           $(".filter-sort-links").css("display", "none");
           jobsDiv.innerHTML = `
-          <div class='has-text-centered'  style='width:100%;'>
+          <div class='has-text-centered mt-6'  style='width:100%;'>
           <h1 class='has-text-danger'>
           You have no jobs saved in your account.
           </h1>
@@ -239,7 +239,7 @@ async function getJobs(statusList, sortBy, companyQuery) {
       if (data.msg == "Authentication Invalid") {
         setUserState();
         jobsDiv.innerHTML = `
-        <div class='has-text-centered'  style='width:100%;'>
+        <div class='has-text-centered mt-6'  style='width:100%;'>
             <img src='./img/khaby.gif' height='100' width='100' alt='POG' />
             <h1>Login to start adding and managing jobs.</h1>
             <br>
