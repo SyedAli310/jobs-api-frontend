@@ -205,7 +205,8 @@ async function getJobs(statusList, sortBy) {
       if (data.msg == "Authentication Invalid") {
         setUserState();
         jobsDiv.innerHTML = `
-        <div class='has-text-centered'>
+        <div class='has-text-centered'  style='width:100%;'>
+            <img src='./img/khaby.gif' height='100' width='100' alt='POG' />
             <h1>Login to start adding and managing jobs.</h1>
             <br>
             <a class='button is-info' href='./login.html'>Login</a>
