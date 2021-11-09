@@ -34,7 +34,8 @@ input[type="radio"],
 input[type="checkbox"] {
   accent-color: #296fa8;
 }
-.checkbox span, .radio {
+.checkbox span,
+.radio {
   color: #296fa8;
 }
 nav {
@@ -124,7 +125,7 @@ ion-icon {
   box-shadow: 1px 2px 8px #1b1b1b;
   animation: navAnim 500ms ease;
 }
-.dropdown-responsive-col{
+.dropdown-responsive-col {
   max-height: 90vh !important;
   overflow-y: scroll !important;
 }
@@ -153,8 +154,8 @@ ion-icon {
 .navbar-brand {
   margin-left: 0 !important;
 }
-@media (max-width: 1200px){
-  .dropdown-responsive-col{
+@media (max-width: 1200px) {
+  .dropdown-responsive-col {
     max-height: 70vh !important;
   }
 }
@@ -163,7 +164,7 @@ ion-icon {
     width: 90vw !important;
     max-width: 95vw !important;
   }
-  .dropdown-responsive-col{
+  .dropdown-responsive-col {
     max-height: 60vh !important;
   }
   .dropdown-content .navbar-item,
@@ -326,13 +327,13 @@ ion-icon {
   font-size: x-small;
   color: grey;
 }
-.jobCard-company{
+.jobCard-company {
   margin-top: 0.5rem !important;
 }
 /* .jobCard-added span, .jobCard-last-upd span {
   white-space: nowrap;
 } */
-.jobCard-added span{
+.jobCard-added span {
   font-size: small;
   color: slateblue !important;
 }
@@ -355,6 +356,20 @@ ion-icon {
 }
 .jobCard-edit {
   color: hsl(204, 86%, 53%);
+}
+
+#add-job-btn-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.all-jobs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .modal-card {

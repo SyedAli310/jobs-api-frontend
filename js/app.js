@@ -680,7 +680,8 @@ function setUserState() {
         </a>
     `);
     $("#dyn-text").text("Get started");
-    $("#add-job-btn-div").css("display", "none !important");
+    $("#add-job-btn-div").css("display", "none");
+    $(".all-jobs-header").css("display", "none");
     $(".back-to-dashboard").css("display", "none");
   } else {
     $("#dyn-btns").html(`
@@ -701,7 +702,8 @@ function setUserState() {
       </a>
       `
     );
-    $("#add-job-btn-div").css("display", "block");
+    $("#add-job-btn-div").css("display", "flex");
+    $(".all-jobs-header").css("display", "flex");
     $(".back-to-dashboard").css("display", "block");
   }
 }
