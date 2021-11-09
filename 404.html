@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" class="has-background-black m-0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Manage all your potential jobs and their status. All in one place."
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="icon" href="./img/JobEase-logo.png" type="image/x-icon" />
+  </head>
+  <title>JobEase &#8226; Home</title>
+
+  <body class="m-0 p-0">
+    <nav
+      class="navbar has-background-black-bis is-fixed-top"
+      role="navigation"
+      aria-label="main navigation"
+    >
+      <div
+        class="
+          container
+          is-fluid
+          is-flex
+          is-justify-content-space-between
+          is-align-items-center
+          has-background-black-bis
+          mt-2
+        "
+      >
+        <div class="navbar-brand">
+          <a class="is-link" href="/">
+            <img
+              src="./img/JobEase-logo.png"
+              width="50"
+              height="50"
+              title="JobEase"
+            />
+          </a>
+        </div>
+        <h1 style="color: #296fa8; font-size: x-large; font-family: inherit">
+          JobEase
+        </h1>
+        <div class="dropdown is-right">
+          <div class="dropdown-trigger">
+            <button
+              class="menu has-text-white"
+              id="hamburger-icon"
+              onclick="this.classList.toggle('opened');this.setAttribute('aria-expanded', this.classList.contains('opened'))"
+              aria-label="Main Menu"
+              aria-haspopup="true"
+              aria-controls="dropdown-menu"
+            >
+              <svg width="50" height="50" viewBox="0 0 100 100">
+                <path
+                  class="line line1"
+                  d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058"
+                />
+                <path class="line line2" d="M 20,50 H 80" />
+                <path
+                  class="line line3"
+                  d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942"
+                />
+              </svg>
+            </button>
+          </div>
+          <div class="dropdown-menu mt-4" id="dropdown-menu" role="menu">
+            <div
+              class="
+                dropdown-content
+                columns
+                p-5
+                is-large is-fullwidth
+                has-background-black-ter
+              "
+            >
+              <!-- <div class="dropdown-trigger" style="width: min-content !important">
+                  <button
+                    class="delete has-background-danger"
+                    aria-haspopup="true"
+                    aria-controls="dropdown-menu"
+                  ></button>
+                </div> -->
+              <div class="column">
+                <div
+                  class="box mx-0 is-shadowless is-fullwidth is-rounded"
+                  style="
+                    background-color: transparent;
+                    outline: 1px solid #296fa8;
+                    font-size: x-large;
+                  "
+                >
+                  <h1
+                    class="
+                      has-text-centered has-text-white has-text-weight-bold
+                    "
+                    id="dyn-text"
+                  >
+                    Get started
+                  </h1>
+                </div>
+
+                <div class="columns">
+                  <div
+                    class="dropdown-item is-large is-fullwidth column is-full"
+                  >
+                    <a href="/" class="navbar-item"> Home </a>
+
+                    <a href="/explore.html" class="navbar-item"> Explore </a>
+
+                    <a href="#" class="navbar-item"> Feedback </a>
+                    <hr class="dropdown-divider" />
+                    <div
+                      class="
+                        navbar-item
+                        login-join
+                        is-flex is-justify-content-space-around
+                      "
+                    >
+                      <div class="buttons is-flex-wrap-nowrap" id="dyn-btns">
+                        <a
+                          href="./register.html"
+                          class="button is-success is-medium"
+                        >
+                          <strong>Join</strong>
+                        </a>
+                        <a
+                          href="./login.html"
+                          class="button is-light is-medium"
+                        >
+                          <strong>Login</strong>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container is-fluid">
+      <section class="hero is-small has-text-white" id="main-hero">
+        <h1 class="is-size-2">404 - Not Found</h1>
+      </section>
+    </main>
+  </body>
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Popper JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+  <!--Ion icons CDN-->
+  <script
+    type="module"
+    src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+  ></script>
+  <script
+    nomodule
+    src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+  ></script>
+
+  <!-- Custom JavaScript -->
+  <script src="./js/app.js"></script>
+</html>
