@@ -301,22 +301,22 @@ ion-icon {
 }
 .jobCard-number {
   color: slateblue !important;
-  text-decoration: underline;
-  margin-bottom: 0.5rem;
   font-weight: bold;
-  font-size: larger;
+  font-size: large;
 }
 .jobCard-last-upd {
-  white-space: nowrap;
   font-size: x-small;
-  color: slateblue;
-  opacity: 0.75;
+  color: grey;
 }
-.jobCard-added {
-  font-size: smaller;
-  color: grey !important;
-  text-align: center !important;
+.jobCard-company{
+  margin-top: 0.5rem !important;
+}
+/* .jobCard-added span, .jobCard-last-upd span {
   white-space: nowrap;
+} */
+.jobCard-added span{
+  font-size: small;
+  color: slateblue !important;
 }
 .jobCard-btns {
   margin-top: 1rem;

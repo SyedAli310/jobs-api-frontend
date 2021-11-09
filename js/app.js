@@ -168,20 +168,22 @@ async function getJobs(statusList, sortBy) {
           </div>
           `
         );
+        // <p class='jobCard-number'>#${index + 1}</p>
         jobs.forEach((el, index) => {
           const job = document.createElement("div");
           job.classList.add("jobCard");
           job.innerHTML = `
-              <p class='jobCard-number'>Job #${index + 1}</p>
-              <span class='jobCard-last-upd'>Last Updated: ${new Date(
+              <span class='jobCard-last-upd'><span class='has-text-info'>Last Updated:</span> ${new Date(
                 el.updatedAt
-              ).toDateString()}
+              ).toDateString()}, at ${new Date(el.updatedAt).toLocaleTimeString()}
               </span>
               <p class='jobCard-company'>Company - <span>${
                 el.company
               }</span></p>
               <p class='jobCard-pos'>Position - <span>${el.position}</span></p>
               <p class='jobCard-status'>Status - <span>${el.status}</span></p>
+              <p class='jobCard-added'>Added - <span>${new Date(el.createdAt).toDateString()}, at ${new Date(el.createdAt).toLocaleTimeString()}</span></p>
+              <hr class='mx-4 has-background-dark'>
               <div class='jobCard-btns'>
               <span class='hoverable-icon' data-title='Visit'>
               <a href='${
@@ -200,9 +202,7 @@ async function getJobs(statusList, sortBy) {
               }' class='jobCard-del'><ion-icon name="bag-remove-outline"></ion-icon></a>
               </span>
               </div>
-              <p class='jobCard-added'>
-              ${new Date(el.createdAt).toDateString()}
-              </p>
+              
               `;
           jobsDiv.appendChild(job);
         });
@@ -336,7 +336,19 @@ async function createJob(company, position, link, status) {
         } else {
           alert("Login to start adding and managing jobs.");
         }
-      } else if (data.msg == "Invalid link") {
+      } else if(data.msg.includes('Please provide')){
+        $("#add-job-btn").removeAttr("disabled");
+        $("#add-job-btn").removeClass("is-loading");
+        if(data.msg.includes('company')){
+          alert("Company name too long. Please choose a shorter name");
+        } 
+        else if(data.msg.includes('position')){
+          alert("Position name too long. Please choose a shorter name");
+        } else{
+          alert('Something went wrong. Please try again.')
+        }
+      }
+      else if (data.msg == "Invalid link") {
         alert("Invalid link");
         $("#add-job-btn").removeAttr("disabled");
         $("#add-job-btn").removeClass("is-loading");
