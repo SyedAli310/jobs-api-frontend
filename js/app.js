@@ -680,7 +680,7 @@ function setUserState() {
         </a>
     `);
     $("#dyn-text").text("Get started");
-    $("#add-job-btn-div").css("display", "none");
+    $("#add-job-btn-div").css("display", "none !important");
     $(".back-to-dashboard").css("display", "none");
   } else {
     $("#dyn-btns").html(`
