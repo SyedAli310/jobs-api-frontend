@@ -120,10 +120,16 @@ ion-icon {
 }
 .dropdown-content {
   min-width: 30vw !important;
-  max-height: 95vh !important;
   border: 1.5px ridge #296fa8;
   box-shadow: 1px 2px 8px #1b1b1b;
   animation: navAnim 500ms ease;
+}
+.dropdown-responsive-col{
+  max-height: 90vh !important;
+  overflow-y: scroll !important;
+}
+.dropdown-responsive-col::-webkit-scrollbar {
+  display: none;
 }
 .twisted-1 {
   text-align: center !important;
@@ -151,7 +157,6 @@ ion-icon {
   .dropdown-content {
     width: 90vw !important;
     max-width: 95vw !important;
-    max-height: 95vh !important;
   }
   .dropdown-content .navbar-item,
   .column {
