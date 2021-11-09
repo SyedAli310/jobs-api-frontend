@@ -158,6 +158,9 @@ ion-icon {
     width: 90vw !important;
     max-width: 95vw !important;
   }
+  .dropdown-responsive-col{
+    max-height: 70vh !important;
+  }
   .dropdown-content .navbar-item,
   .column {
     font-size: 15px !important;
