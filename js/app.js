@@ -147,7 +147,7 @@ async function getJobs(statusList, sortBy) {
         jobsDiv.innerHTML = `
         <div class='has-text-centered'  style='width:100%;'>
         <h1 class='has-text-danger'>
-        You have no jobs added to your account.
+        You have no jobs saved in your account.
         </h1>
         <img class='mt-5' src='./img/why-${Math.ceil(Math.random()*4)}.gif' height='100' width='130' alt='POG' />
         </div>
