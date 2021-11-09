@@ -658,6 +658,7 @@ function checkUserStatus() {
     return true;
   } else {
     console.log("Not Logged In");
+    localStorage.clear();
     return false;
   }
 }
