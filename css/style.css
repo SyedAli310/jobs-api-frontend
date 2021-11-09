@@ -214,10 +214,13 @@ ion-icon {
   }
   .all-jobs-header {
     justify-content: center !important;
-    flex-direction: column !important;
+    flex-direction: column-reverse !important;
   }
   .all-jobs-header u {
     text-align: center !important;
+  }
+  #dyn-jobs-header-msg {
+    margin-top: 0.5rem;
   }
 }
 
