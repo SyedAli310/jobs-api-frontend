@@ -136,6 +136,7 @@ async function getJobs(statusList, sortBy) {
     if (statusList || sortBy) {
       $("#filter-sort-submit-btn").removeAttr("disabled");
       $("#filter-sort-submit-btn").removeClass("is-loading");
+      $('#filter-sort-modal').removeClass('is-active');
     }
     if (data.msg === "OK") {
       console.log(data);
