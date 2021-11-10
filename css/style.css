@@ -32,7 +32,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 input[type="radio"],
 input[type="checkbox"] {
-  accent-color: #296fa8;
+  accent-color: #3ec487;
 }
 .checkbox span,
 .radio {
@@ -42,6 +42,11 @@ nav {
   margin-top: 0 !important;
   box-shadow: 1px 1px 10px #222121;
 }
+.tag:not(body).is-warning {
+  color: black !important;
+  font-weight: bolder !important;
+}
+
 #dyn-btns {
   flex-direction: row-reverse !important;
   gap: 1rem !important;
@@ -484,4 +489,25 @@ ion-icon {
 
 #form-error p {
   margin: 1rem 2rem !important;
+}
+
+.notification{
+  display: none;
+}
+.show-noti{
+  display: block !important;
+  transform: translateX(100%);
+  animation: showNotification 750ms forwards;
+}
+
+
+@keyframes showNotification {
+  0% {
+    opacity: 0 !important;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1 !important;
+    transform: translateX(0);
+  }
 }

@@ -203,7 +203,13 @@ async function getJobs(statusList, sortBy, companyQuery) {
                 el.company
               }</span></p>
               <p class='jobCard-pos'>Position - <span>${el.position}</span></p>
-              <p class='jobCard-status'>Status - <span>${el.status}</span></p>
+              <p class='jobCard-status'>Status - <span class='tag ${
+                el.status === "declined"
+                  ? "is-danger"
+                  : el.status === "interview"
+                  ? "is-info"
+                  : "is-warning"
+              }'>${el.status}</span></p>
               <p class='jobCard-added'>Added - <span>${new Date(
                 el.createdAt
               ).toDateString()}, at ${new Date(
@@ -257,6 +263,12 @@ async function getJobs(statusList, sortBy, companyQuery) {
     console.log(error.message);
     $("#saved-jobs-search-btn").removeAttr("disabled");
     $("#saved-jobs-search-btn").removeClass("is-loading");
+    $("#filter-sort-submit-btn").removeAttr("disabled");
+    $("#filter-sort-submit-btn").removeClass("is-loading");
+    $("#filter-sort-modal").removeClass("is-active");
+    deleteJobEventBinder();
+    updateJobEventBinder();
+    filter_sort_binder();
     jobsDiv.innerHTML = `
     <div class='has-text-centered' style='width:100%'>
     <h1 class='has-text-danger'>${error.message} <br/> Please try again after some time!</h1>
@@ -342,7 +354,13 @@ async function createJob(company, position, link, status) {
       if (window.location.pathname.includes("dashboard")) {
         getJobs();
       } else {
-        alert("Job added successfully!");
+        $(".notification").addClass("show-noti");
+        if (x) {
+          clearTimeout(x);
+        }
+        x = setTimeout(() => {
+          $(".notification").removeClass("show-noti");
+        }, 3500);
       }
     } else {
       if (data.msg == "Authentication Invalid") {
@@ -562,6 +580,7 @@ async function getExploreJobs(page) {
         </div>
         `;
       }
+      // createJob('${el.company}','${el.position}','${el.url}','pending');
       jobs.forEach((el, index) => {
         const job = document.createElement("div");
         job.classList.add("jobCard");
@@ -571,16 +590,16 @@ async function getExploreJobs(page) {
             <div class='jobCard-btns'>
             <span class='hoverable-icon' data-title='Save'>
             <a href='javascript:void(0)' 
-            name='${el.id}' 
-            onclick="createJob('${el.company}','${el.position}','${
-          el.url
-        }','pending')"}
-            class='save-explore-job' ><ion-icon name="save-outline"></ion-icon></a>
+            name='${el.company}' pos='${el.position}' url='${el.url}'
+            onclick="saveJobToAccount(this);"}
+            class='button save-explore-job' style='background:transparent !important; border:none !important; height:auto !important; color:#485fc7 !important;'>
+            <ion-icon name="bookmarks-outline"></ion-icon></a>
             </span>
             <span class='hoverable-icon' data-title='Visit'>
-            <a href='${el.url}' target='_blank' title='${
+            <a href='${el.url}' class='button' target='_blank' title='${
           el.company
-        }' ><ion-icon name="send-outline"></ion-icon></a>
+        }' style='background:transparent !important; border:none !important; height:auto !important; color:#485fc7 !important;' >
+            <ion-icon name="send-outline"></ion-icon></a>
             </span>
             </div>
             <p class='jobCard-added'>
@@ -602,6 +621,14 @@ async function getExploreJobs(page) {
     </div>
     `;
   }
+}
+async function saveJobToAccount(elem) {
+  const company = elem.getAttribute("name");
+  const position = elem.getAttribute("pos");
+  const url = elem.getAttribute("url");
+  elem.classList.add("is-loading");
+  await createJob(company, position, url, "pending");
+  elem.classList.remove("is-loading");
 }
 
 function filter_sort_binder() {
@@ -895,4 +922,15 @@ $(".modal-open-upd").on("click", () => {
 });
 $(".confirm-modal-close").on("click", () => {
   $("#confirm-msg-modal").removeClass("is-active");
+});
+
+let x = null;
+$(".animated-text").on("click", () => {
+  $(".notification").addClass("show-noti");
+  if (x) {
+    clearTimeout(x);
+  }
+  x = setTimeout(() => {
+    $(".notification").removeClass("show-noti");
+  }, 3500);
 });
