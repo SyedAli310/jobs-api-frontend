@@ -191,6 +191,7 @@ async function getJobs(statusList, sortBy, companyQuery) {
         jobs.forEach((el, index) => {
           const job = document.createElement("div");
           job.classList.add("jobCard");
+          job.classList.add("is-flex-grow-1");
           job.innerHTML = `
               <span class='jobCard-last-upd'><span class='has-text-info'>Last Updated:</span> ${new Date(
                 el.updatedAt

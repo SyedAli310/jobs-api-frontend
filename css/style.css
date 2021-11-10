@@ -154,11 +154,22 @@ ion-icon {
 .navbar-brand {
   margin-left: 0 !important;
 }
+
 @media (max-width: 1200px) {
   .dropdown-responsive-col {
     max-height: 70vh !important;
   }
 }
+@media (max-width: 1150px) {
+  .all-jobs-header {
+    justify-content: center !important;
+    flex-direction: column-reverse !important;
+  }
+  .all-jobs-header u {
+    text-align: center !important;
+  }
+}
+
 @media (max-width: 768px) {
   .dropdown-content {
     width: 90vw !important;
@@ -218,6 +229,9 @@ ion-icon {
   }
   .all-jobs-header u {
     text-align: center !important;
+  }
+  #ad-job-div-btn {
+    margin-bottom: 1rem !important;
   }
   #dyn-jobs-header-msg {
     margin-top: 0.5rem;
@@ -303,6 +317,7 @@ ion-icon {
     width: 100%;
   }
 }
+
 .jobCard {
   min-width: 30vw !important;
 }
@@ -363,9 +378,10 @@ ion-icon {
 
 #add-job-btn-div {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-wrap: nowrap;
+  margin-bottom: 1.5rem;
 }
 .all-jobs-header {
   display: flex;
