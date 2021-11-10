@@ -584,6 +584,7 @@ async function getExploreJobs(page) {
       jobs.forEach((el, index) => {
         const job = document.createElement("div");
         job.classList.add("jobCard");
+        job.classList.add("is-flex-grow-1");
         job.innerHTML = `
             <p class='jobCard-company'>Company - <span>${el.company}</span></p>
             <p class='jobCard-pos'>Position - <span>${el.position}</span></p>
@@ -622,6 +623,7 @@ async function getExploreJobs(page) {
     `;
   }
 }
+
 async function saveJobToAccount(elem) {
   const company = elem.getAttribute("name");
   const position = elem.getAttribute("pos");
