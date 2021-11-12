@@ -31,6 +31,29 @@
     .pagination-link{
       color: #fff !important;
     }
+    #explore-jobs-search-btn{
+      position: absolute;
+      right: 1px;
+      top: 50%;
+      transform: translate(0%,-50%);
+      cursor: pointer;
+      color: #485fc7;
+      background-color: transparent;
+      outline: none;
+      border-radius: 0px !important;
+      border-left: 1px solid #485fc7;
+      border-right: none;
+      border-top: none;
+      border-bottom: none;
+      height: 95%;
+    }
+    #explore-jobs-search-btn ion-icon{
+      font-size: 1.5rem;
+    }
+    #explore-jobs-search-input:focus-visible{
+      background-color: black !important;
+      color:#fff;
+    }
   </style>
   <body class="m-0 p-0">
     <nav
@@ -159,9 +182,30 @@
           </div>
 
           </div>
-
-          <div class="has-text-left mx-5 back-to-dashboard">
+          
+          <div class="has-text-left mx-5">
             <a href="./dashboard.html" class="ml-2"><ion-icon name="arrow-back-outline"></ion-icon>&nbsp;Go to dashboard</a>
+        </div>
+          <div class="columns is-centered mx-4" style="margin-top: 0 !important;">
+            <div class="column is-half">
+              <form id='explore-jobs-search-form'>
+                <div class="field">
+                  <div class="control has-icons-right">
+                    <label for="explore-jobs-search-input"><i>coming soon...</i></label>
+                    <input
+                    class="input is-large has-background-dark"
+                    type="text"
+                    placeholder="Search for a profile (react, front-end) ..."
+                    autocomplete="off" id="explore-jobs-search-input"
+                    disabled
+                    />
+                    <button type="submit" class="button" id="explore-jobs-search-btn" disabled>
+                      <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
           <div
             class="
@@ -178,7 +222,7 @@
             <button class="pagination-previous button is-info" id='prev-page'>Prev</button>
             <button class="pagination-next button is-info" id='next-page'>Next</button>
             <ul class="pagination-list">
-              <li><a href="javascript:void(0)" class="pagination-link" value='1' aria-label="Goto page 1">1</a></li>
+              <li><a href="javascript:void(0)" class="pagination-link" value='1' aria-label="Goto page 1" id="first-page">1</a></li>
               <li><span class="pagination-ellipsis">&hellip;</span></li>
               <li><a href="javascript:void(0)" class="pagination-link" value='' aria-label="Goto page 45" id="mid-minus-one">45</a></li>
               <li><a href="javascript:void(0)" class="pagination-link is-current" value='' aria-label="Page 46" aria-current="page" id="curr-page">46</a></li>

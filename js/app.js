@@ -541,12 +541,14 @@ async function updateJob(id, updatedData) {
   }
 }
 
-async function getExploreJobs(page) {
+async function getExploreJobs(page, query) {
   try {
     $("#next-page").css("display", "block");
     jobsExploreDiv.innerHTML = spinner;
     const res = await fetch(
-      `https://jobease.herokuapp.com/api/v1/explore/jobs?page=${page}&limit=5`
+      `https://jobease.herokuapp.com/api/v1/explore/jobs?page=${page}&limit=5&position=${
+        query ? query : ""
+      }`
     );
     const data = await res.json();
     if (data.msg == "OK") {
@@ -555,6 +557,21 @@ async function getExploreJobs(page) {
       const jobs = data.data;
       $("#next-page").removeAttr("disabled");
       $("#prev-page").removeAttr("disabled");
+      // if (query) {
+      //   $("#prev-page").attr("pos", query);
+      //   $("#next-page").attr("pos", query);
+      //   $("#curr-page").attr("pos", query);
+      //   $("#last-page").attr("pos", query);
+      //   $("#first-page").attr("pos", query);
+      //   $("#mid-plus-one").attr("pos", query);
+      //   $("#mid-minus-one").attr("pos", query);
+      // } else {
+      //   $("#prev-page").attr("pos", "");
+      //   $("#next-page").attr("pos", "");
+      //   $("#curr-page").attr("pos", "");
+      //   $("#mid-plus-one").attr("pos", "");
+      //   $("#mid-minus-one").attr("pos", "");
+      // }
       $("#prev-page").html(
         `<ion-icon name="arrow-back-circle-outline"></ion-icon>
         &nbsp;
@@ -627,6 +644,7 @@ async function getExploreJobs(page) {
             `;
         jobsExploreDiv.appendChild(job);
       });
+      exploreSearchBinder();
     }
   } catch (error) {
     console.log(error.message);
@@ -694,6 +712,17 @@ function filter_sort_binder() {
     $("#saved-jobs-search-btn").addClass("is-loading");
     const search = $("#saved-jobs-search-input").val();
     getJobs("", "-createdAt", search);
+  });
+}
+
+function exploreSearchBinder() {
+  $("#explore-jobs-search-form").on("submit", (e) => {
+    e.preventDefault();
+    //$("#explore-jobs-search-btn").attr("disabled", "disabled");
+    //$("#explore-jobs-search-btn").addClass("is-loading");
+    const search = $("#explore-jobs-search-input").val();
+    console.log(search);
+    getExploreJobs(1, search);
   });
 }
 
@@ -863,7 +892,7 @@ $("#update-job-form").on("submit", (e) => {
 });
 
 // explore page pagination handlers
-$("#next-page").click(() => {
+$("#next-page").click((e) => {
   page++;
   getExploreJobs(page);
   let x = null;
@@ -876,7 +905,7 @@ $("#next-page").click(() => {
   }, 2000);
 });
 
-$("#prev-page").click(() => {
+$("#prev-page").click((e) => {
   page--;
   getExploreJobs(page);
   let x = null;
