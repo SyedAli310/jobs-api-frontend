@@ -892,6 +892,7 @@ $("#prev-page").click(() => {
 $(".pagination-link").on("click", (e) => {
   page = e.target.attributes.value.value;
   getExploreJobs(page);
+  window.scrollTo(0, 0);
   console.log("Page No - ", page);
 });
 
