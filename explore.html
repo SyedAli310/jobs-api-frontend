@@ -28,6 +28,9 @@
       border: 1px solid #296fa8;
       backdrop-filter: blur(5px);
     }
+    .pagination-link{
+      color: #fff !important;
+    }
   </style>
   <body class="m-0 p-0">
     <nav
@@ -156,11 +159,7 @@
           </div>
 
           </div>
-          <div class="pagination-controls is-flex is-justify-content-center is-align-items-center">
-            <button class="button is-info has-text-white is-small mb-4 mx-6" id='prev-page'></button>
-            <span class="has-text-centered has-text-info" id="curr-page"></span>
-            <button class="button is-info has-text-white is-small mb-4 mx-6" id='next-page'></button>
-          </div>
+
           <div class="has-text-left mx-5 back-to-dashboard">
             <a href="./dashboard.html" class="ml-2"><ion-icon name="arrow-back-outline"></ion-icon>&nbsp;Go to dashboard</a>
           </div>
@@ -175,7 +174,19 @@
             id="all-explore-jobs-div"
             style="min-height: 50vh; gap: 1rem;"
           ></div>
-        </div>
+          <nav class="pagination is-centered mx-5 my-5" role="navigation" aria-label="pagination" style="box-shadow: none;">
+            <button class="pagination-previous button is-info" id='prev-page'>Prev</button>
+            <button class="pagination-next button is-info" id='next-page'>Next</button>
+            <ul class="pagination-list">
+              <li><a class="pagination-link" value='1' aria-label="Goto page 1">1</a></li>
+              <li><span class="pagination-ellipsis">&hellip;</span></li>
+              <li><a class="pagination-link" value='' aria-label="Goto page 45" id="mid-minus-one">45</a></li>
+              <li><a class="pagination-link is-current" value='' aria-label="Page 46" aria-current="page" id="curr-page">46</a></li>
+              <li><a class="pagination-link" value='' aria-label="Goto page 47" id="mid-plus-one">47</a></li>
+              <li><span class="pagination-ellipsis">&hellip;</span></li>
+              <li><a class="pagination-link" value='' aria-label="Goto page 86" id="last-page">86</a></li>
+            </ul>
+          </nav>
       </section>
     </main>
 

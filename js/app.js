@@ -546,7 +546,7 @@ async function getExploreJobs(page) {
     $("#next-page").css("display", "block");
     jobsExploreDiv.innerHTML = spinner;
     const res = await fetch(
-      `https://jobease.herokuapp.com/api/v1/explore/jobs?page=${page}`
+      `https://jobease.herokuapp.com/api/v1/explore/jobs?page=${page}&limit=5`
     );
     const data = await res.json();
     if (data.msg == "OK") {
@@ -558,14 +558,31 @@ async function getExploreJobs(page) {
       $("#prev-page").html(
         `<ion-icon name="arrow-back-circle-outline"></ion-icon>
         &nbsp;
-        ${data.pageNo - 1}
+        Prev
         `
       );
-      $("#curr-page").html(`${data.pageNo} of ${data.totalPages}`);
+      $("#curr-page").html(`${data.pageNo}`);
+      $("#curr-page").attr("value", data.pageNo);
       $("#next-page").html(
-        `${data.pageNo + 1}
+        `Next
         &nbsp;
         <ion-icon name="arrow-forward-circle-outline"></ion-icon>`
+      );
+      $("#last-page").html(`${data.totalPages}`);
+      $("#last-page").attr("value", data.totalPages);
+      $("#mid-plus-one").html(
+        `${
+          data.pageNo + 2 < data.totalPages ? data.pageNo + 2 : data.totalPages
+        }`
+      );
+      $("#mid-plus-one").attr(
+        "value",
+        data.pageNo + 2 < data.totalPages ? data.pageNo + 2 : data.totalPages
+      );
+      $("#mid-minus-one").html(`${data.pageNo - 2 > 0 ? data.pageNo - 2 : 1}`);
+      $("#mid-minus-one").attr(
+        "value",
+        data.pageNo - 2 > 0 ? data.pageNo - 2 : 1
       );
       if (data.pageNo == data.totalPages) {
         $("#next-page").attr("disabled", "disabled");
@@ -580,6 +597,7 @@ async function getExploreJobs(page) {
         </div>
         `;
       }
+      //previous method to savea job to the user data
       // createJob('${el.company}','${el.position}','${el.url}','pending');
       jobs.forEach((el, index) => {
         const job = document.createElement("div");
@@ -869,6 +887,12 @@ $("#prev-page").click(() => {
   setTimeout(() => {
     $("#prev-page").removeAttr("disabled");
   }, 2000);
+});
+
+$(".pagination-link").on("click", (e) => {
+  page = e.target.attributes.value.value;
+  getExploreJobs(page);
+  console.log("Page No - ", page);
 });
 
 // UI interaction Handlers
