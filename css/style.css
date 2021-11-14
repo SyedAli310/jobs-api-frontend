@@ -53,6 +53,7 @@ nav {
 }
 main {
   margin-top: 6rem !important;
+  min-height: 95vh;
 }
 ion-icon {
   pointer-events: none;
