@@ -73,7 +73,6 @@ ion-icon {
 
 .hoverable-icon {
   position: relative;
-  overflow: visible !important;
 }
 
 .hoverable-icon::after {
@@ -82,21 +81,25 @@ ion-icon {
   left: 50%;
   top: -100%;
   z-index: 10;
-  width: 0.001;
-  height: 0.001;
-  opacity: 0;
+  width: auto;
+  height: auto;
   font-size: x-small;
   padding: 0 0.5rem;
-  background-color: rgba(39, 39, 39, 0.75);
-  color: white;
-  border-radius: 4px;
+  background-color: #ff4;
+  font-size: 0.75rem;
+  color: black;
+  font-weight: bold;
+  border-radius: 4px / 50%;
   transform: translate(-50%, 0);
-  transition: all ease-in 300ms;
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: all ease-in 500ms;
 }
 .hoverable-icon:hover::after {
+  display: block;
+  visibility: visible;
   opacity: 1;
-  height: auto;
-  width: auto;
 }
 .dropdown-content .navbar-item,
 .column {
