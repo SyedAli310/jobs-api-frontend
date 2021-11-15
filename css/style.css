@@ -213,6 +213,10 @@ ion-icon {
   .hero-svg-div {
     margin-bottom: 1.5rem !important;
   }
+  .stats-hero{
+    flex-direction: column !important;
+    gap: 2rem !important;
+  }
   .is-fluid {
     padding: 0 !important;
   }
