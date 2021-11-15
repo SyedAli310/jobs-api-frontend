@@ -16,8 +16,16 @@
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="icon" href="./img/JobEase-logo.png" type="image/x-icon" />
   </head>
-  <title>JobEase &#8226; Login</title>
-
+  <title>JobEase &#8226; Home</title>
+  <style>
+      .question-mark{
+          display: inline-flex;
+          transition: all ease 500ms;
+      }
+      .question-mark:hover{
+          transform: scale(10);
+      }
+  </style>
   <body class="m-0 p-0">
     <nav
       class="navbar has-background-black-bis is-fixed-top"
@@ -37,7 +45,12 @@
       >
         <div class="navbar-brand">
           <a class="is-link" href="/">
-            <img src="./img/JobEase-logo.png" width="50" height="50" />
+            <img
+              src="./img/JobEase-logo.png"
+              width="50"
+              height="50"
+              title="JobEase"
+            />
           </a>
         </div>
         <h1 style="color: #296fa8; font-size: x-large; font-family: inherit">
@@ -137,66 +150,18 @@
     </nav>
 
     <main class="container is-fluid">
-      <div class="container">
-        <span id="form-error" class="has-text-centered mb-4">&nbsp;</span>
-        <form id="login-form" class="has-text-centered p-6 mx-auto">
-          <h1 class="is-size-4 mb-6 has-text-info-dark">
-            Login to your account
-          </h1>
-          <div class="field mb-5">
-            <p class="control has-icons-left has-icons-right">
-              <input
-                class="input is-info has-background-grey-darker has-text-white"
-                type="email"
-                name="login-email"
-                id="login-email"
-                placeholder="Email"
-              />
-              <span class="icon is-large is-left">
-                <ion-icon name="mail-outline"></ion-icon>
-              </span>
-            </p>
-          </div>
-          <div class="field mb-5">
-            <p class="control has-icons-left">
-              <input
-                class="input is-info has-background-grey-darker has-text-white"
-                type="password"
-                name="login-password"
-                id="login-password"
-                placeholder="Password"
-              />
-              <span class="icon is-small is-left">
-                <ion-icon name="lock-closed-outline"></ion-icon>
-              </span>
-            </p>
-          </div>
-          <div class="field mb-5">
-            <p class="control">
-              <button class="button is-info" type="submit" id="login-btn">
-                <ion-icon
-                  name="log-in-outline"
-                  style="font-size: larger"
-                ></ion-icon>
-                &nbsp;Login
-              </button>
-            </p>
-          </div>
-          <p
-            class="
-              is-flex is-align-items-center is-justify-content-center
-              has-text-white-ter
-            "
-          >
-            Not registered?&nbsp;<a
-              class="has-text-success"
-              href="./register.html"
-              >Join</a
-            >
-          </p>
-        </form>
-      </div>
+      <section class="hero is-small has-text-white" id="main-hero">
+        
+        <div class="has-text-centered">
+            <h1 class="is-size-2">Welcome to <u class="has-text-success-dark">Feedbacks</u></h1>
+            <br><br><br><br><br><br>
+            <h1 class="is-size-2 question-mark">?</h1>
+        </div>
+        
+      </section>
     </main>
+
+
     <footer class="has-text-centered mb-4">
       <hr class="has-background-dark mx-6 is-rounded">
       <p class="has-text-centered mb-5">developed by - <a class="is-link" href="https://www.linkedin.com/in/syed-ali-058b7610b/" target="_blank">@syedali</a><br></p>
