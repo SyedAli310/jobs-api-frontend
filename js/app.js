@@ -143,6 +143,7 @@ async function getJobs(statusList, sortBy, companyQuery) {
       $("#filter-sort-modal").removeClass("is-active");
     }
     if (data.msg === "OK") {
+      getJobsInfo();
       console.log(data);
       const jobs = data.jobs;
       jobsDiv.innerHTML = "";
@@ -314,6 +315,52 @@ async function getSingleJob(id) {
   } catch (error) {
     console.log(error.message);
     $(".update-job-modal").removeClass("is-active");
+    jobsDiv.innerHTML = `
+    <div class='has-text-centered' style='width:100%'>
+    <h1 class='has-text-danger'>${error.message} <br/> Please try again after some time!</h1>
+    <img src='./img/error.gif' height='140' width='140' alt='ERROR' />
+    </div>
+    `;
+    setUserState();
+  }
+}
+
+async function getJobsInfo() {
+  try {
+    const token = localStorage.getItem("accessToken");
+    const res = await fetch("https://jobease.herokuapp.com/api/v1/jobs/info", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await res.json();
+    if (data.msg === "OK") {
+      console.log("Single Job", data);
+      $("#pending-jobs span").text(data.pendingJobs);
+      $("#interview-jobs span").text(data.interviewJobs);
+      $("#declined-jobs span").text(data.declinedJobs);
+    } else {
+      if (data.msg == "Authentication Invalid") {
+        setUserState();
+        jobsDiv.innerHTML = `
+        <div class='has-text-centered'  style='width:100%;'>
+            <img src='./img/khaby.gif' height='100' width='100' alt='POG' />
+            <h1>Login to start adding and managing jobs.</h1>
+            <br>
+            <a class='button is-info' href='./login.html'>Login</a>
+            <a class='button is-dark' href='./explore.html'>Explore</a>
+        </div>
+        `;
+      } else {
+        jobsDiv.innerHTML = data.msg;
+        setUserState();
+      }
+    }
+  } catch (error) {
+    console.log(error.message);
     jobsDiv.innerHTML = `
     <div class='has-text-centered' style='width:100%'>
     <h1 class='has-text-danger'>${error.message} <br/> Please try again after some time!</h1>
@@ -760,6 +807,7 @@ function setUserState() {
     $("#dyn-text").text("Get started");
     $("#add-job-btn-div").css("display", "none");
     $(".all-jobs-header").css("display", "none");
+    $(".all-jobs-info-div").css("display", "none");
     $(".back-to-dashboard").css("display", "none");
   } else {
     $("#dyn-btns").html(`
@@ -782,6 +830,7 @@ function setUserState() {
     );
     $("#add-job-btn-div").css("display", "flex");
     $(".all-jobs-header").css("display", "flex");
+    $(".all-jobs-info-div").css("display", "block");
     $(".back-to-dashboard").css("display", "block");
   }
 }
