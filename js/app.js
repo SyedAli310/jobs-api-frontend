@@ -10,7 +10,7 @@ let page = 1;
 
 async function login(email, password) {
   try {
-    const res = await fetch("https://jobease.herokuapp.com/api/v1/auth/login", {
+    const res = await fetch("https://jobease-api.vercel.app/api/v1/auth/login", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -63,7 +63,7 @@ async function login(email, password) {
 async function register(name, email, password) {
   try {
     const res = await fetch(
-      "https://jobease.herokuapp.com/api/v1/auth/register",
+      "https://jobease-api.vercel.app/api/v1/auth/register",
       {
         method: "POST",
         headers: {
@@ -120,7 +120,7 @@ async function getJobs(statusList, sortBy, companyQuery) {
     jobsDiv.innerHTML = spinner;
     const token = localStorage.getItem("accessToken");
     const res = await fetch(
-      `https://jobease.herokuapp.com/api/v1/jobs?sort=${
+      `https://jobease-api.vercel.app/api/v1/jobs?sort=${
         sortBy ? sortBy : "-createdAt"
       }&status=${statusList ? statusList : ""}&company=${
         companyQuery ? companyQuery : ""
@@ -283,7 +283,7 @@ async function getJobs(statusList, sortBy, companyQuery) {
 async function getSingleJob(id) {
   try {
     const token = localStorage.getItem("accessToken");
-    const res = await fetch("https://jobease.herokuapp.com/api/v1/jobs/" + id, {
+    const res = await fetch("https://jobease-api.vercel.app/api/v1/jobs/" + id, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -328,7 +328,7 @@ async function getSingleJob(id) {
 async function getJobsInfo() {
   try {
     const token = localStorage.getItem("accessToken");
-    const res = await fetch("https://jobease.herokuapp.com/api/v1/jobs/info", {
+    const res = await fetch("https://jobease-api.vercel.app/api/v1/jobs/info", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -374,7 +374,7 @@ async function getJobsInfo() {
 async function createJob(company, position, link, status) {
   try {
     const token = localStorage.getItem("accessToken");
-    const res = await fetch("https://jobease.herokuapp.com/api/v1/jobs", {
+    const res = await fetch("https://jobease-api.vercel.app/api/v1/jobs", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -472,7 +472,7 @@ async function createJob(company, position, link, status) {
 async function deleteJob(id) {
   try {
     const token = localStorage.getItem("accessToken");
-    const res = await fetch("https://jobease.herokuapp.com/api/v1/jobs/" + id, {
+    const res = await fetch("https://jobease-api.vercel.app/api/v1/jobs/" + id, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -522,7 +522,7 @@ async function deleteJob(id) {
 async function updateJob(id, updatedData) {
   try {
     const token = localStorage.getItem("accessToken");
-    const res = await fetch("https://jobease.herokuapp.com/api/v1/jobs/" + id, {
+    const res = await fetch("https://jobease-api.vercel.app/api/v1/jobs/" + id, {
       method: "PATCH",
       headers: {
         Accept: "application/json",
@@ -593,7 +593,7 @@ async function getExploreJobs(page, query) {
     $("#next-page").css("display", "block");
     jobsExploreDiv.innerHTML = spinner;
     const res = await fetch(
-      `https://jobease.herokuapp.com/api/v1/explore/jobs?page=${page}&limit=5&position=${
+      `https://jobease-api.vercel.app/api/v1/explore/jobs?page=${page}&limit=5&position=${
         query ? query : ""
       }`
     );
